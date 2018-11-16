@@ -28,6 +28,7 @@ public class Dao {
 			result = false;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+			result = false;
 			e.printStackTrace();
 		}
 		return result;
