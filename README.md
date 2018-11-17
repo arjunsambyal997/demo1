@@ -3,9 +3,9 @@
 * sql connector included in lib folder
 * MySql 
 
-> Password for PhpMyadmin is `""` and password for MySQL Workbench is `"root"` .
+> Password for PhpMyadmin is  `""`  and password for MySQL Workbench is `"root"` 
 
-> Make necessary adjustments in Dao class 
+> Make necessary adjustments in Dao class (master will have "")
 
 ## How to get a copy of the project
 ```
@@ -30,6 +30,6 @@ git branch [branchName]
 ```
 
 ## Alloted branch names
-Ashwin Jawahar - master
-Arnav Ajav - arnav
-Gayathri Chandreshekar - gayathri
+* Ashwin Jawahar - master
+* Arnav Ajav - arnav
+* Gayathri Chandreshekar - gayathri
