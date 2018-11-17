@@ -1,8 +1,10 @@
 ## project dependencies
-*Apache Tomcat v8.5
-*sql connector included in lib folder
-*MySql 
-> Password for PhpMyadmin is `""` and password for MySQL Workbench is `"root"` 
+* Apache Tomcat v8.5
+* sql connector included in lib folder
+* MySql 
+
+> Password for PhpMyadmin is `""` and password for MySQL Workbench is `"root"` .
+
 > Make necessary adjustments in Dao class 
 
 ## How to get a copy of the project
