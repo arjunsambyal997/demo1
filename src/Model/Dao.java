@@ -9,17 +9,19 @@ import java.util.*;
 
 public class Dao {
 
-	private String url = "jdbc:mysql://localhost:3306/student";
+	private String url = "jdbc:mysql://localhost:3306/Book_list";
 	private String user = "root";
 	private String pass = "";
+	String sql;
 	
-	public boolean insert(String sql, User s) {
+	public boolean insertUser(User s) {
 		boolean result = true ;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection(url, user, pass);
+			sql = "INSERT INTO `User` (`username`, `password`) VALUES (?,?)";
 			PreparedStatement ps = con.prepareStatement(sql);
-			ps.setInt(1, s.getId());
+			ps.setString(1, s.getName());
 			ps.setString(2, s.getPassword());
 			ps.executeUpdate();
 		} catch (ClassNotFoundException e) {
@@ -33,15 +35,41 @@ public class Dao {
 		}
 		return result;
 	}
-
-	public boolean update(String sql, User s) {
+	
+	public boolean insertContact(User s) {
 		boolean result = true ;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection(url, user, pass);
+			sql = "INSERT INTO `Contact`(`name`, `email`, `phone`) VALUES (?,?,?)";
 			PreparedStatement ps = con.prepareStatement(sql);
-			ps.setInt(2, s.getId());
-			ps.setString(1, s.getPassword());
+			ps.setString(1, s.getName());
+			ps.setString(2, s.getEmail());
+			ps.setString(3, s.getPhone());
+
+			ps.executeUpdate();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			result = false;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			result = false;
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	public boolean updateUser(User s) {
+		boolean result = true ;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection(url, user, pass);
+			sql = "UPDATE `User` SET `username`=?,`password`=? WHERE ?";
+			PreparedStatement ps = con.prepareStatement(sql);			
+			ps.setString(1, s.getName());
+			ps.setString(2, s.getPassword());
+			ps.setInt(3, s.getId());			
 			ps.executeUpdate();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -55,11 +83,12 @@ public class Dao {
 		return result;
 	}
 
-	public boolean delete(String sql, int id) {
+	public boolean deleteUser(int id) {
 		boolean result = true ;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection(url, user, pass);
+			sql = "Delete from User where id=?";
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setInt(1, id);
 			ps.executeUpdate();
@@ -76,19 +105,24 @@ public class Dao {
 		return result;
 	}
 
-	public List <User> select(String sql, int id) {
-		List <User> s = new ArrayList<>();
+	public List <User> selectUser(int id) {
+		List <User> lst = new ArrayList<>();
 		try {
 			
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection(url, user, pass);
+			sql="Select * from User where id=?";
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
-			while (rs.next()) {
-				s.add(new User (rs.getInt(1),rs.getString(2)));
-				
+
+			while(rs.next()) {
+				User u = new User();
+				u.setId(rs.getInt(1));
+				u.setName(rs.getString(2));
+				lst.add(u);
 			}
+
 
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -97,22 +131,26 @@ public class Dao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return s;
+		return lst;
 
 
 	}
 
-	public List <User> selectAll(String sql) {
-		List <User> s = new ArrayList<>();
+	public List <User> selectAllUsers() {
+		List <User> lst = new ArrayList<>();
 		try {
 
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection(url, user, pass);
+			sql="Select * from User";
 			PreparedStatement ps = con.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 		
 			while(rs.next()) {
-				s.add(new User (rs.getInt(1),rs.getString(2)));
+				User u = new User();
+				u.setId(rs.getInt(1));
+				u.setName(rs.getString(2));
+				lst.add(u);
 			}
 
 		} catch (ClassNotFoundException e) {
@@ -122,7 +160,7 @@ public class Dao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return s;
+		return lst;
 
 	}
 }

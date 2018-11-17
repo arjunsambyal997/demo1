@@ -34,17 +34,17 @@ public class Controller extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String sql;
 		String button = request.getParameter("b1");
 		User s;
 		Dao db = new Dao();
 			if(button.equals("Insert"))
 			{
-				sql = "Insert into student2 values(?,?)";
-				int id=Integer.parseInt(request.getParameter("t1"));
-				String password=request.getParameter("t2");			
-				s = new User (id,password) ;		
-				Boolean flag = db.insert(sql,s);
+				String name=request.getParameter("t2");
+				String password=request.getParameter("t3");			
+				s = new User () ;
+				s.setName(name);
+				s.setPassword(password);
+				Boolean flag = db.insertUser(s);
 				if(flag)
 				{
 					RequestDispatcher view = request.getRequestDispatcher("view.jsp");
@@ -52,13 +52,15 @@ public class Controller extends HttpServlet {
 				}
 				
 			} else if (button.equals("Update")) {
-				sql = "Update student2 set password=? where id=?";
+				
 				int id=Integer.parseInt(request.getParameter("t1"));
-				String password = request.getParameter("t2");
+				String name = request.getParameter("t2");
+				String password = request.getParameter("t3");
 				s = new User ();
+				s.setName(name);
 				s.setPassword(password);
 				s.setId(id);
-				boolean flag = db.update(sql, s);
+				boolean flag = db.updateUser(s);
 				if(flag)
 				{
 					RequestDispatcher view = request.getRequestDispatcher("view.jsp");
@@ -66,9 +68,9 @@ public class Controller extends HttpServlet {
 				}
 				
 			} else if (button.equals("Delete")) {
-				sql = "Delete from student2 where id=?";
+				
 				int id=Integer.parseInt(request.getParameter("t1"));
-				boolean flag = db.delete(sql, id);
+				boolean flag = db.deleteUser(id);
 				if(flag)
 				{
 					RequestDispatcher view = request.getRequestDispatcher("view.jsp");
@@ -76,16 +78,15 @@ public class Controller extends HttpServlet {
 				}
 				
 			} else if (button.equals("Select")) {
-				int id=Integer.parseInt(request.getParameter("t1"));
-				sql="Select * from student2 where id=?";
-				List <User> s1 =  db.select(sql,id);
+				int id=Integer.parseInt(request.getParameter("t1"));			
+				List <User> s1 =  db.selectUser(id);
 				request.setAttribute("st", s1);
 				RequestDispatcher view = request.getRequestDispatcher("view1.jsp");
 				view.forward(request, response);
 				
 			} else if (button.equals("SelectAll")) {
-				sql="Select * from student2";
-				List <User> s1 =  db.selectAll(sql);
+			
+				List <User> s1 =  db.selectAllUsers();
 				request.setAttribute("st", s1);
 				RequestDispatcher view = request.getRequestDispatcher("view1.jsp");
 				view.forward(request, response);

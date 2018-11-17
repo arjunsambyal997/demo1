@@ -19,13 +19,13 @@
 </head>
 <body>
 <%
-	List <User> s = (ArrayList <User> ) request.getAttribute("st");
+	List <User> s = (List <User> ) request.getAttribute("st");
 %>
 <table class="table table-striped">
   <thead class ="thead-dark">
     <tr>
       <th scope="col">Id</th>
-      <th scope="col">Password</th>
+      <th scope="col">Name</th>
     </tr>
   </thead>
   <tbody>
@@ -34,7 +34,7 @@
  %>
     <tr>
       <th scope="row"><%=obj.getId() %></th>
-      <td><%=obj.getPassword() %></td>
+      <td><%=obj.getName() %></td>
     </tr>
    <%} %>
   </tbody>
