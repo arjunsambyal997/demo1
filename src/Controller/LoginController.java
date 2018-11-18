@@ -11,7 +11,7 @@ import Model.User;
  /**
  * Servlet implementation class RegisterController
  */
-@WebServlet("/register")
+@WebServlet(name = "login", urlPatterns = { "/login" })
 public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -28,10 +28,11 @@ public class LoginController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		Dao db = new Dao();
-		
+		String button = request.getParameter("b1");	
 		String username=request.getParameter("u");
 		String password=request.getParameter("p");	
-		
+		if(button.equals("Login"))
+		{
 		if(db.checkUser(username, password))
         {
             RequestDispatcher rs = request.getRequestDispatcher("Home.jsp");
@@ -43,6 +44,7 @@ public class LoginController extends HttpServlet {
            RequestDispatcher rs = request.getRequestDispatcher("Login.jsp");
            rs.include(request, response);
         }
+		}
 		
 				
 				

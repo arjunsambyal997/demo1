@@ -11,7 +11,8 @@ import Model.User;
  /**
  * Servlet implementation class RegisterController
  */
-@WebServlet("/register")
+@WebServlet(name = "register", urlPatterns = { "/register" })
+
 public class RegisterController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -29,7 +30,7 @@ public class RegisterController extends HttpServlet {
 		// TODO Auto-generated method stub
 		User s;
 		Dao db = new Dao();
-				
+		String button = request.getParameter("b1");	
 		String name=request.getParameter("n");
 		String username=request.getParameter("u");
 		String email=request.getParameter("e");
@@ -41,6 +42,8 @@ public class RegisterController extends HttpServlet {
 				s.setEmail(email);
 				s.setPhone(phone);
 				s.setName(name);
+				if(button.equals("Register"))
+				{
 				if(password.equals(cpassword))
 				{
 					s.setPassword(password);
@@ -53,8 +56,9 @@ public class RegisterController extends HttpServlet {
 				}
 				else
 				{
-					RequestDispatcher rs = request.getRequestDispatcher("SignUp".jsp");
+					RequestDispatcher rs = request.getRequestDispatcher("SignUp.jsp");
 			        rs.include(request, response);
+				}
 				}
 				
 				
