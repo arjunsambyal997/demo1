@@ -1,6 +1,7 @@
 package Controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -38,22 +39,19 @@ public class BorrowController extends HttpServlet {
 		if(button.equals("SearchBook"))
 		{
 			String book=request.getParameter("t1");
-			Boolean flag = db.searchBook(book);
-			if(flag)
-			{
+			List <Book> b1 = db.searchBook(book);
+			request.setAttribute("bo", b1);
 				RequestDispatcher view = request.getRequestDispatcher("view.jsp");
 				view.forward(request, response);
-			}
 		}
 		else if(button.equals("SearchAuthor"))
 		{
 			String author=request.getParameter("t2");
-			Boolean flag = db.searchBook(author);
-			if(flag)
-			{
+			List <Book> b1 = db.searchBookA(author);
+			request.setAttribute("bo", b1);
 				RequestDispatcher view = request.getRequestDispatcher("view.jsp");
 				view.forward(request, response);
-			}
+			
 		}
 	}
 

@@ -51,7 +51,7 @@ public class RegisterController extends HttpServlet {
 				Boolean flag = db.insertContact(s);
 				if(flag)
 				{
-					RequestDispatcher view = request.getRequestDispatcher("view.jsp");
+					RequestDispatcher view = request.getRequestDispatcher("Home.jsp");
 					view.forward(request, response);
 				}
 			}
