@@ -163,4 +163,24 @@ public class Dao {
 		return lst;
 
 	}
+	public boolean checkUser(String username,String password) 
+    {
+     boolean st =false;
+     try{
+
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection con = DriverManager.getConnection(url, user, pass);
+        PreparedStatement ps =con.prepareStatement
+                            ("select * from User where username=? and password=?");
+        ps.setString(1, username);
+        ps.setString(2, password);
+        ResultSet rs =ps.executeQuery();
+        st = rs.next();
+       
+     }catch(Exception e)
+     {
+         e.printStackTrace();
+     }
+        return st;                 
+ }   
 }
