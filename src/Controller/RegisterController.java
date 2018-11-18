@@ -30,19 +30,34 @@ public class RegisterController extends HttpServlet {
 		User s;
 		Dao db = new Dao();
 				
-				String name = request.getParameter("t1");
-				String email = request.getParameter("t2");
-				String phone =request.getParameter("t3");					
+		String name=request.getParameter("n");
+		String username=request.getParameter("u");
+		String email=request.getParameter("e");
+		String phone=request.getParameter("ph");
+		String password=request.getParameter("p");	
+		String cpassword=request.getParameter("cp");	
+		
 				s = new User () ;
 				s.setEmail(email);
 				s.setPhone(phone);
 				s.setName(name);
-				Boolean flag = db.insertContact(s);
-				if(flag)
+				if(password.equals(cpassword))
 				{
-					RequestDispatcher view = request.getRequestDispatcher("view.jsp");
-					view.forward(request, response);
+					s.setPassword(password);
+					Boolean flag = db.insertContact(s);
+					if(flag)
+					{
+						RequestDispatcher view = request.getRequestDispatcher("view.jsp");
+						view.forward(request, response);
+					}
 				}
+				else
+				{
+					RequestDispatcher rs = request.getRequestDispatcher("SignUp".jsp");
+			        rs.include(request, response);
+				}
+				
+				
 				
 	}
  	/**

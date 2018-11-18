@@ -79,7 +79,7 @@ input:focus { box-shadow: inset 0 -5px 45px rgba(100,100,100,0.4), 0 1px 1px rgb
     	<input type="text" name="e" placeholder="Email" required="required" />
     	<input type="text" name="ph" placeholder="Contact No." required="required" />
         <input type="password" name="p" placeholder="Password" required="required" />
-        <input type="password" name="p" placeholder="Confirm Password" required="required" />
+        <input type="password" name="cp" placeholder="Confirm Password" required="required" />
         
         <button type="submit" class="btn btn-primary btn-block btn-large">Register</button>
     </form>
