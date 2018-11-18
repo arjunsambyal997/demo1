@@ -15,7 +15,7 @@ import Model.Dao;
 /**
  * Servlet implementation class DeleteBookController
  */
-@WebServlet("/DeleteBookController")
+@WebServlet("/deletebook")
 public class DeleteBookController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -37,8 +37,8 @@ public class DeleteBookController extends HttpServlet {
 		Dao db = new Dao();
 		if(button.equals("DeleteBook")) 
 		{	
-			int id=Integer.parseInt(request.getParameter("t1"));
-			String name=request.getParameter("t2");
+			int id=Integer.parseInt(request.getParameter("b"));
+			String name=request.getParameter("i");
 			boolean flag = db.deleteBook(id);
 			if(flag)
 			{

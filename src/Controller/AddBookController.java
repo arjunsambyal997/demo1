@@ -16,7 +16,7 @@ import Model.User;
 /**
  * Servlet implementation class AddBookController
  */
-@WebServlet("/AddBookController")
+@WebServlet("/addbook")
 public class AddBookController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -38,9 +38,9 @@ public class AddBookController extends HttpServlet {
 		Dao db = new Dao();
 		if(button.equals("AddBook"))
 		{
-			String bookname=request.getParameter("t1");
-			String author=request.getParameter("t2");
-			String genre=request.getParameter("t3");
+			String bookname=request.getParameter("b");
+			String author=request.getParameter("a");
+			String genre=request.getParameter("g");
 			
 			b = new Book () ;
 			b.setName(bookname);
