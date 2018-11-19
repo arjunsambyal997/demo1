@@ -8,9 +8,9 @@ public class Book {
 	private String name;	
 	private String author;
 	private String genre;
-	private String status;
-	private int contactId;
-	
+	private String issueStatus;
+	private int userId;
+	private String status ;
 	
 	public int getBookId() {  				//Returns book id value
 		return bookId;
@@ -42,11 +42,18 @@ public class Book {
 	public void setStatus(String status) {	//Sets status of current object
 		this.status = status;
 	}
-	public int getContactId() {				//Returns contact id of book owner
-		return contactId;
+	public String getIssueStatus() { // Returns issue status of book
+		return issueStatus;
 	}
-	public void setContactId(int contactId) { //Sets contact id of current object
-		this.contactId = contactId;
+	public void setIssueStatus(String issueStatus) { // Sets issue status of books
+		this.issueStatus = issueStatus;
+	}
+	public int getUserId() {  // returns user id
+		return userId;
+	}
+	public void setUserId(int userId) { // sets user id
+		this.userId = userId;
+
 	}
 
 }
