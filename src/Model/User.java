@@ -10,6 +10,7 @@ private int id;
 private String password;
 private int contactId;
 private String name;
+private String userName;
 private String email;
 private String phone;
 
@@ -49,6 +50,12 @@ public String getPhone() {					//Returns phone no. of user
 }
 public void setPhone(String phone) {		//Sets phone no. of user from form
 	this.phone = phone;
+}
+public String getUserName() {
+	return userName;
+}
+public void setUserName(String userName) {
+	this.userName = userName;
 }
 
 

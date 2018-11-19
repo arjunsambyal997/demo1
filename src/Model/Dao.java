@@ -118,14 +118,13 @@ public class Dao {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection(url, user, pass);
-			sql = "INSERT INTO `Book`(`bookid`, `uid`, `name`, `author`, `genre`, `status`) VALUES (?,?,?,?,?,?)";
+			sql = "INSERT INTO `Book`(`uid`, `name`, `author`, `genre`, `status`) VALUES (?,?,?,?,?)";
 			PreparedStatement ps = con.prepareStatement(sql);
-			ps.setInt(1, b.getBookId());
-			ps.setInt(2, b.getUserId());
-			ps.setString(3, b.getName());
-			ps.setString(4, b.getAuthor());
-			ps.setString(5, b.getGenre());
-			ps.setString(6, b.getStatus());
+			ps.setInt(1, b.getUserId());
+			ps.setString(2, b.getName());
+			ps.setString(3, b.getAuthor());
+			ps.setString(4, b.getGenre());
+			ps.setString(5, b.getStatus());
 			ps.executeUpdate();
 			con.close();
 		} catch (ClassNotFoundException e) {
@@ -472,7 +471,7 @@ public class Dao {
 			
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection(url, user, pass);
-			sql="Select `username`, `email`, `phone` from User Inner Join Contact where User.uid = Contact.contactid and uid= ?";
+			sql="Select `username`, `name`, `email`, `phone` from User Inner Join Contact where User.uid = Contact.contactid and uid= ?";
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
@@ -480,9 +479,10 @@ public class Dao {
 			while(rs.next()) {
 				User u = new User();
 				u.setId(id);
-				u.setName(rs.getString(1));
-				u.setEmail(rs.getString(2));
-				u.setPhone(rs.getString(3));		
+				u.setUserName(rs.getString(1));
+				u.setName(rs.getString(2));
+				u.setEmail(rs.getString(3));
+				u.setPhone(rs.getString(4));		
 				lst.add(u);
 			}
 
@@ -499,24 +499,25 @@ public class Dao {
 
 	}
 	
-	//returns uid,email and phone for a user by name
-	public List <User> selectUser(String name) {
+	//returns uid,name,email and phone for a user by username
+	public List <User> selectUser(String username) {
 		List <User> lst = new ArrayList<>();
 		try {
 			
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection(url, user, pass);
-			sql="Select `uid`, `email`, `phone` from User Inner Join Contact where User.uid = Contact.contactid and username=?";
+			sql="Select `uid`, `name`, `email`, `phone` from User Inner Join Contact where User.uid = Contact.contactid and username=?";
 			PreparedStatement ps = con.prepareStatement(sql);
-			ps.setString(1, name);
+			ps.setString(1, username);
 			ResultSet rs = ps.executeQuery();
 
 			while(rs.next()) {
 				User u = new User();
 				u.setId(rs.getInt(1));
-				u.setEmail(rs.getString(2));
-				u.setPhone(rs.getString(3));	
-				u.setName(name);
+				u.setUserName(username);
+				u.setName(rs.getString(2));
+				u.setEmail(rs.getString(3));
+				u.setPhone(rs.getString(4));	
 				lst.add(u);
 			}
 
@@ -540,16 +541,17 @@ public class Dao {
 
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection(url, user, pass);
-			sql="Select `uid`, `username`, `email`, `phone` from User Inner Join Contact where User.uid = Contact.contactid";
+			sql="Select `uid`, `username`, `name`, `email`, `phone` from User Inner Join Contact where User.uid = Contact.contactid";
 			PreparedStatement ps = con.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 		
 			while(rs.next()) {
 				User u = new User();
 				u.setId(rs.getInt(1));
-				u.setName(rs.getString(2));
-				u.setEmail(rs.getString(3));
-				u.setPhone(rs.getString(4));		
+				u.setUserName(rs.getString(2));
+				u.setName(rs.getString(3));
+				u.setEmail(rs.getString(4));
+				u.setPhone(rs.getString(5));		
 				lst.add(u);
 			}
 			con.close();
@@ -827,8 +829,8 @@ public class Dao {
 
         Class.forName("com.mysql.jdbc.Driver");
         Connection con = DriverManager.getConnection(url, user, pass);
-        PreparedStatement ps =con.prepareStatement
-                            ("select * from User where username=? and password=?");
+        sql = "select * from User where username=? and password=?";
+        PreparedStatement ps =con.prepareStatement (sql);
         ps.setString(1, username);
         ps.setString(2, password);
         ResultSet rs =ps.executeQuery();
