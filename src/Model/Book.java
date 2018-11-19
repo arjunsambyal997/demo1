@@ -5,9 +5,9 @@ public class Book {
 	private String name;	
 	private String author;
 	private String genre;
-	private String status;
-	private int contactId;
-	
+	private String issueStatus;
+	private int userId;
+	private String status ;
 	
 	public int getBookId() {
 		return bookId;
@@ -39,11 +39,18 @@ public class Book {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public int getContactId() {
-		return contactId;
+
+	public String getIssueStatus() {
+		return issueStatus;
 	}
-	public void setContactId(int contactId) {
-		this.contactId = contactId;
+	public void setIssueStatus(String issueStatus) {
+		this.issueStatus = issueStatus;
+	}
+	public int getUserId() {
+		return userId;
+	}
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 
 }
