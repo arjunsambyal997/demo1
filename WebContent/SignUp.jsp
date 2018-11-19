@@ -62,7 +62,7 @@ input {
 input:focus { box-shadow: inset 0 -5px 45px rgba(100,100,100,0.4), 0 1px 1px rgba(255,255,255,0.2); }
 </style></head><body>
 
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<a class="navbar-brand" class="container-fluid" href="http://localhost:8080/Library/Home.jsp">Home</a>
 			<div class="container-fluid">
 				<ul class="nav navbar-nav">
@@ -76,8 +76,6 @@ input:focus { box-shadow: inset 0 -5px 45px rgba(100,100,100,0.4), 0 1px 1px rgb
 			</div>
 	</nav>
 	
-
-
 <!-- SIGNUP FORM  -->
 
 
