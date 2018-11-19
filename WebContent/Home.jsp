@@ -76,8 +76,8 @@
 	    			</tbody>
 				</table>
 			</div>
-			
-			<div class="login">
+			</div>
+			<div class="container" style = "padding-right : 350px ; padding-left : 350px;" >
 				<form action="Search" class="form-inline form-group">
 					<input type="search" placeholder="Search Book">
 					<button type="button" class="btn btn-primary btn-block btn-large">Search Book</button>
