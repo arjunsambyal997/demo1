@@ -40,18 +40,19 @@ public class HomeController extends HttpServlet {
 		// TODO Auto-generated method stub
 		String button = request.getParameter("b1");
 		Book b;
-		int id; //? Logged in user
+		
+		String name=;
 		Dao db = new Dao();
-		List <Book> b1 = db.addedBooks(id);
+		List <Book> b1 = db.selectAllBooksByUser(name);
 		request.setAttribute("bo", b1);
 		if(button.equals("Add"))
 		{
-				RequestDispatcher view = request.getRequestDispatcher("AddBook.jsp");
+				RequestDispatcher view = request.getRequestDispatcher("addBook.jsp");
 				view.forward(request, response);
 		}
 		else if(button.equals("Delete"))
 		{
-			RequestDispatcher view = request.getRequestDispatcher("DeleteBook.jsp");
+			RequestDispatcher view = request.getRequestDispatcher("deleteBook.jsp");
 			view.forward(request, response);
 		}
 		

@@ -36,8 +36,10 @@ public class LoginController extends HttpServlet {
 			
 		if(button.equals("Login"))
 		{
-			String username=request.getParameter("u");
+		String username=request.getParameter("u");
 			String password=request.getParameter("p");
+			User s;
+			s.setUserName(username);
 			if(db.checkUser(username, password))
 	        {
 	            RequestDispatcher rs = request.getRequestDispatcher("Home.jsp");

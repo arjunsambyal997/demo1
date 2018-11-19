@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import Model.Dao;
 import Model.User;
+import Model.Book;
 
 /**
  * Servlet implementation class BorrowController
@@ -40,11 +41,12 @@ public class BorrowController extends HttpServlet {
 		// TODO Auto-generated method stub
 		String button = request.getParameter("b1");
 		User s;
+		
 		Dao db = new Dao();
 		if(button.equals("SearchBook"))
 		{
 			String book=request.getParameter("t1");
-			List <Book> b1 = db.searchBook(book);
+			List <Book> b1 = db.selectBookByName(book);
 			request.setAttribute("bo", b1);
 				RequestDispatcher view = request.getRequestDispatcher("view.jsp");
 				view.forward(request, response);
@@ -52,7 +54,7 @@ public class BorrowController extends HttpServlet {
 		else if(button.equals("SearchAuthor"))
 		{
 			String author=request.getParameter("t2");
-			List <Book> b1 = db.searchBookA(author);
+			List <Book> b1 = db.selectBookByAuthor(author);
 			request.setAttribute("bo", b1);
 				RequestDispatcher view = request.getRequestDispatcher("view.jsp");
 				view.forward(request, response);
