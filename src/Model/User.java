@@ -7,6 +7,7 @@ private int id;
 private String password;
 private int contactId;
 private String name;
+private String userName;
 private String email;
 private String phone;
 
@@ -46,6 +47,12 @@ public String getPhone() {
 }
 public void setPhone(String phone) {
 	this.phone = phone;
+}
+public String getUserName() {
+	return userName;
+}
+public void setUserName(String userName) {
+	this.userName = userName;
 }
 
 
