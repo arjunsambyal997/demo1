@@ -66,7 +66,7 @@
 				<div class="container bg-dark">
 						<h2 class="display-4 text-light" style="padding: 10px">Contact Form</h2>
 						<hr>
-					<form action="register" class="form-group" style="padding: 20px">
+					<form name="RegForm" action="register" class="form-group" style="padding: 20px">
 						<h5 class="display-5 text-light">Name:</h5>
 						<input type="text" name="t1" class="form-control" /><br>				
 						<h5 class="display-5 text-light">Email:</h5>

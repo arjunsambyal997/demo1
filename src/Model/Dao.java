@@ -24,6 +24,7 @@ public class Dao {
 			ps.setString(1, s.getName());
 			ps.setString(2, s.getPassword());
 			ps.executeUpdate();
+			con.close();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -47,8 +48,8 @@ public class Dao {
 			ps.setString(2, s.getName());
 			ps.setString(3, s.getEmail());
 			ps.setString(4, s.getPhone());
-
 			ps.executeUpdate();
+			con.close();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -71,8 +72,8 @@ public class Dao {
 			ps.setInt(1, b.getId());
 			ps.setInt(2, b.getBookId());
 			ps.setInt(3, b.getOwnerId());
-
 			ps.executeUpdate();
+			con.close();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -95,6 +96,7 @@ public class Dao {
 			ps.setInt(1, b.getBookId());
 			ps.setString(2, b.getIssueStatus());
 			ps.executeUpdate();
+			con.close();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -121,6 +123,7 @@ public class Dao {
 			ps.setString(5, b.getGenre());
 			ps.setString(6, b.getStatus());
 			ps.executeUpdate();
+			con.close();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -144,6 +147,7 @@ public class Dao {
 			ps.setString(1, password);
 			ps.setInt(2, id);			
 			ps.executeUpdate();
+			con.close();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -166,6 +170,7 @@ public class Dao {
 			ps.setString(1, username);
 			ps.setInt(2, id);			
 			ps.executeUpdate();
+			con.close();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -188,6 +193,7 @@ public class Dao {
 			ps.setString(1, name);
 			ps.setInt(2, contactId);			
 			ps.executeUpdate();
+			con.close();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -210,6 +216,7 @@ public class Dao {
 			ps.setString(1, phone);
 			ps.setInt(2, contactId);		
 			ps.executeUpdate();
+			con.close();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -232,6 +239,7 @@ public class Dao {
 			ps.setString(1, email);
 			ps.setInt(2, contactId);
 			ps.executeUpdate();
+			con.close();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -254,6 +262,7 @@ public class Dao {
 			ps.setString(1, issueStatus);
 			ps.setInt(2, bookId);
 			ps.executeUpdate();
+			con.close();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -276,6 +285,7 @@ public class Dao {
 			ps.setString(1, name);
 			ps.setInt(2, bookId);
 			ps.executeUpdate();
+			con.close();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -298,6 +308,7 @@ public class Dao {
 			ps.setString(1, author);
 			ps.setInt(2, bookId);
 			ps.executeUpdate();
+			con.close();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -321,6 +332,7 @@ public class Dao {
 			ps.setString(1, genre);
 			ps.setInt(2, bookId);
 			ps.executeUpdate();
+			con.close();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -343,6 +355,7 @@ public class Dao {
 			ps.setString(1, status);
 			ps.setInt(2, bookId);
 			ps.executeUpdate();
+			con.close();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -364,7 +377,7 @@ public class Dao {
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setInt(1, uid);
 			ps.executeUpdate();
-			
+			con.close();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -386,7 +399,7 @@ public class Dao {
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setInt(1, contactId);
 			ps.executeUpdate();
-			
+			con.close();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -412,6 +425,7 @@ public class Dao {
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, bookId);
 			ps.executeUpdate();
+			con.close();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -434,7 +448,7 @@ public class Dao {
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setInt(1, borrowId);
 			ps.executeUpdate();
-	
+			con.close();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -468,7 +482,7 @@ public class Dao {
 				lst.add(u);
 			}
 
-
+			con.close();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -502,7 +516,7 @@ public class Dao {
 				lst.add(u);
 			}
 
-
+			con.close();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -534,7 +548,7 @@ public class Dao {
 				u.setPhone(rs.getString(4));		
 				lst.add(u);
 			}
-
+			con.close();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -567,8 +581,7 @@ public class Dao {
 				b.setIssueStatus(rs.getString(5));
 				lst.add(b);
 			}
-
-
+			con.close();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -579,8 +592,9 @@ public class Dao {
 		return lst;
 
 
-	}
 	
+}
+//searches for a book in book table using author and returns its status as well
 	public List <Book> selectBookByAuthor(String author) {
 		List <Book> lst = new ArrayList<>();
 		try {
@@ -601,8 +615,7 @@ public class Dao {
 				b.setIssueStatus(rs.getString(5));
 				lst.add(b);
 			}
-
-
+			con.close();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -619,7 +632,6 @@ public class Dao {
 	public List <Book> selectAllBooksByUser(String name) {
 		List <Book> lst = new ArrayList<>();
 		try {
-
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection(url, user, pass);
 			sql="SELECT `name`, `author`, `genre`, `state` FROM Book INNER JOIN User ON User.uid = Book.uid And User.username =?";
@@ -635,7 +647,7 @@ public class Dao {
 				b.setStatus(rs.getString(4));
 				lst.add(b);
 			}
-
+			con.close();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -667,7 +679,7 @@ public class Dao {
 				b.setStatus(rs.getString(4));
 				lst.add(b);
 			}
-
+			con.close();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -696,7 +708,7 @@ public class Dao {
 				b.setAuthor(rs.getString(2));
 				b.setGenre(rs.getString(3));
 				b.setStatus(rs.getString(4));				
-
+				con.close();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -726,7 +738,7 @@ public class Dao {
 				b.setStatus(rs.getString(4));
 				lst.add(b);
 			}
-
+			con.close();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -740,8 +752,8 @@ public class Dao {
 	
 	
 	//checks for a specific book available for borrow 
-	public Book selectBookForBorrow(String bookname) {
-		Book b = new Book();
+	public List <Book> selectBookForBorrow(String bookname) {
+		List <Book> lst = new ArrayList<>();
 		try {
 
 			Class.forName("com.mysql.jdbc.Driver");
@@ -750,12 +762,15 @@ public class Dao {
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setString(1, bookname);
 			ResultSet rs = ps.executeQuery();
-			
+			while(rs.next()) {
+				Book b = new Book();
 				b.setName(rs.getString(1));
 				b.setAuthor(rs.getString(2));
 				b.setGenre(rs.getString(3));
-				b.setStatus(rs.getString(4));				
-
+				b.setStatus(rs.getString(4));
+				lst.add(b);
+			}				
+				con.close();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -763,7 +778,7 @@ public class Dao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return b;
+		return lst;
 
 	}
 	
@@ -787,7 +802,7 @@ public class Dao {
 				b.setStatus(rs.getString(4));
 				lst.add(b);
 			}
-
+			con.close();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -801,4 +816,25 @@ public class Dao {
 	
 	
 	
+	public boolean checkUser(String username,String password) 
+    {
+     boolean st =false;
+     try{
+
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection con = DriverManager.getConnection(url, user, pass);
+        PreparedStatement ps =con.prepareStatement
+                            ("select * from User where username=? and password=?");
+        ps.setString(1, username);
+        ps.setString(2, password);
+        ResultSet rs =ps.executeQuery();
+        st = rs.next();
+        con.close();
+     }catch(Exception e)
+     {
+         e.printStackTrace();
+     }
+        return st;                 
+ }   
+
 }
