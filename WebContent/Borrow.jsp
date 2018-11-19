@@ -10,19 +10,23 @@
 <body>
 
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<a class="navbar-brand" class="container-fluid" href="http://localhost:8080/Library/Home.jsp">Home</a>
+
+		<a class="navbar-brand" class="container-fluid" href="http://localhost:8080/advJava/Home.jsp">Home</a>
 			<div class="container-fluid">
 				<ul class="nav navbar-nav">
-					<li><a class="nav-link" class="active" href="http://localhost:8080/Library/Borrow.jsp">Borrow</a></li>
+					<li><a class="nav-link" class="active" href="http://localhost:8080/advJava/Borrow.jsp">Borrow</a></li>
 					<li><a class="nav-link" href="#">Contact-Info</a></li>
 				</ul>
 				<ul class="navbar-nav ml-auto">
-					<li><a class="nav-link" href="http://localhost:8080/Library/Login.jsp#">Sign-In</a></li>
-					<li><a class="nav-link" href="http://localhost:8080/Library/SignUp.jsp">Sign-Up</a></li>
+					<li><a class="nav-link" href="http://localhost:8080/advJava/Login.jsp">Sign-In</a></li>
+					<li><a class="nav-link" href="http://localhost:8080/advJava/SignUp.jsp">Sign-Up</a></li>
 				</ul>
 			</div>
 	</nav>
-	
+	<%
+	List <Book> b = (List <Book> ) request.getAttribute("bo");
+	%>
+
 	<div class="container">
 		<div class="col">
 			<h2>
@@ -39,9 +43,16 @@
 		
 				<tbody>
 					<%
-						//Controller.displayBooks();	
-					%>
-					
+ 						for (Book obj : b) {
+ 					%>
+ 					<tr>
+				      <th scope="row"><%=obj.getName() %></th>
+				      <td><%=obj.getAuthor() %></td>
+				      <td><%=obj.getGenre() %></td>
+				   
+				    </tr>
+				   <%} %>
+
 					
 				</tbody>
 			</table>

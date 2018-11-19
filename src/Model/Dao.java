@@ -1,5 +1,8 @@
 package Model;
-
+/*This class handles all the methods called in the Controller classes
+ * for execution of functions connected to database.
+ * Creates connection to the database.
+ */
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -13,6 +16,7 @@ public class Dao {
 	private String user = "root";
 	private String pass = "";
 	String sql;
+	
 	
 	public boolean insertUser(User s) {
 		boolean result = true ;
