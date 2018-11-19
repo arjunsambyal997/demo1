@@ -1,15 +1,15 @@
 package Model;
 
 public class Borrower extends User {
-	private int borrowerId;
+	private int ownerId;
 	private int bookId;
 	
 
-	public int getBorrowerId() {
-		return borrowerId;
+	public int getOwnerId() {
+		return ownerId;
 	}
 	public void setBorrowerId(int borrowerId) {
-		this.borrowerId = borrowerId;
+		this.ownerId = borrowerId;
 	}
 	public int getBookId() {
 		return bookId;

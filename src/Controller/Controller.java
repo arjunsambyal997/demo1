@@ -57,10 +57,10 @@ public class Controller extends HttpServlet {
 				String name = request.getParameter("t2");
 				String password = request.getParameter("t3");
 				s = new User ();
-				s.setName(name);
-				s.setPassword(password);
-				s.setId(id);
-				boolean flag = db.updateUser(s);
+
+				boolean flag = db.updateUserName(id , name);
+				flag = db.updateUserPassword(id , password);
+				
 				if(flag)
 				{
 					RequestDispatcher view = request.getRequestDispatcher("view.jsp");

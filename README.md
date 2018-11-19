@@ -5,7 +5,7 @@
 
 > Password for PhpMyadmin is  `""`  and password for MySQL Workbench is `"root"` 
 
-> Make necessary adjustments in Dao class (master will have "")
+> Make necessary adjustments in Dao class (master will have  `""`)
 
 ## How to get a copy of the project
 ```
