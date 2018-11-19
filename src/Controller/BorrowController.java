@@ -1,6 +1,7 @@
 package Controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -30,6 +31,11 @@ public class BorrowController extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+    
+    /* Searches for books w.r.t to book name or author name and displays
+     * a table of list of books.
+     * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String button = request.getParameter("b1");
@@ -38,22 +44,19 @@ public class BorrowController extends HttpServlet {
 		if(button.equals("SearchBook"))
 		{
 			String book=request.getParameter("t1");
-			Boolean flag = db.searchBook(book);
-			if(flag)
-			{
+			List <Book> b1 = db.searchBook(book);
+			request.setAttribute("bo", b1);
 				RequestDispatcher view = request.getRequestDispatcher("view.jsp");
 				view.forward(request, response);
-			}
 		}
 		else if(button.equals("SearchAuthor"))
 		{
 			String author=request.getParameter("t2");
-			Boolean flag = db.searchBook(author);
-			if(flag)
-			{
+			List <Book> b1 = db.searchBookA(author);
+			request.setAttribute("bo", b1);
 				RequestDispatcher view = request.getRequestDispatcher("view.jsp");
 				view.forward(request, response);
-			}
+			
 		}
 	}
 

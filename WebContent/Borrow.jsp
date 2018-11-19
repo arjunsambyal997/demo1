@@ -14,11 +14,13 @@
 		<nav class="navbar navbar-expand-lg navbar-light bg-light md-2">
 			<a class="navbar-brand" class="container-fluid" href="http://localhost:8080/Library/Borrow.jsp">Borrow Books</a>
 			<div class="container-fluid">
+
 				<ul class="navbar-nav ml-auto">
-					<li><a class="nav-link" href="http://localhost:8080/Library/Login.jsp#">Sign-In</a></li>
-					<li><a class="nav-link" href="http://localhost:8080/Library/SignUp.jsp">Sign-Up</a></li>
+					<li><a class="nav-link" href="http://localhost:8080/advJava/Login.jsp">Sign-In</a></li>
+					<li><a class="nav-link" href="http://localhost:8080/advJava/SignUp.jsp">Sign-Up</a></li>
 				</ul>
 			</div>
+
 		</nav>
 	
 		<div class="container-fluid">
@@ -65,6 +67,7 @@
 					</tbody>
 				</table>
 			</div>
+
 		</div>
 		<div class="login">
 			<form action="Search Book/User" class="form-group">
