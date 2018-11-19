@@ -17,14 +17,17 @@
 				</ul>
 				<ul class="navbar-nav ml-auto">
 					<li><a class="nav-link" href="http://localhost:8080/advJava/Login.jsp">Sign-Out</a></li>
+
 				</ul>
 			</div>
 	</nav>
 	
+
 	<button type="button" value="Add" class="btn" onClick="">Add Books</button>
 	<%
 	List <Book> b = (List <Book> ) request.getAttribute("bo");
 	%>
+
 	<div class="container">
 		<h2>
 			List of Books Added by the User
@@ -47,6 +50,8 @@
 				   
 				    </tr>
 				   <%} %>
+
+	
 		</table>
 	</div>
 	
@@ -62,3 +67,4 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 </body>
 </html>
+

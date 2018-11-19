@@ -10,6 +10,7 @@
 <body>
 
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+
 		<a class="navbar-brand" class="container-fluid" href="http://localhost:8080/advJava/Home.jsp">Home</a>
 			<div class="container-fluid">
 				<ul class="nav navbar-nav">
@@ -25,6 +26,7 @@
 	<%
 	List <Book> b = (List <Book> ) request.getAttribute("bo");
 	%>
+
 	<div class="container">
 		<div class="col">
 			<h2>
@@ -50,7 +52,7 @@
 				   
 				    </tr>
 				   <%} %>
-					
+
 					
 				</tbody>
 			</table>
