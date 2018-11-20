@@ -6,6 +6,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import Model.Dao;
 import Model.User;
  /**
@@ -38,10 +40,13 @@ public class LoginController extends HttpServlet {
 		{
 		String username=request.getParameter("u");
 			String password=request.getParameter("p");
-			User s;
-			s.setUserName(username);
 			if(db.checkUser(username, password))
 	        {
+				User u = new User();
+				u.setUserName(username);
+				u.setPassword(password);
+				HttpSession session=request.getSession();
+				session.setAttribute("u", u);
 	            RequestDispatcher rs = request.getRequestDispatcher("Home.jsp");
 	            rs.forward(request, response);
 	        }
