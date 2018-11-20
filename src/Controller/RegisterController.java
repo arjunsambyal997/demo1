@@ -54,7 +54,7 @@ public class RegisterController extends HttpServlet {
 				s.setPhone(phone);
 				s.setName(name);
 				s.setPassword(password);
-				s.setUserName(username);
+				s.setUserName(username);  //MAKE GLOBAL
 				Boolean flag = db.insertContact(s);
 				if(flag)
 				{

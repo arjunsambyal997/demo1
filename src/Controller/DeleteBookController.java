@@ -42,12 +42,17 @@ public class DeleteBookController extends HttpServlet {
 		Dao db = new Dao();
 		if(button.equals("DeleteBook")) 
 		{	
-			int id=Integer.parseInt(request.getParameter("b"));
-			String name=request.getParameter("i");
+			String name=request.getParameter("b");
+			int id=Integer.parseInt(request.getParameter("i"));
 			boolean flag = db.deleteBook(id);
 			if(flag)
 			{
-				RequestDispatcher view = request.getRequestDispatcher("view.jsp");
+				RequestDispatcher view = request.getRequestDispatcher("Home.jsp");
+				view.forward(request, response);
+			}
+			else
+			{
+				RequestDispatcher view = request.getRequestDispatcher("deleteBook.jsp");
 				view.forward(request, response);
 			}
 		}

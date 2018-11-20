@@ -46,17 +46,24 @@ public class AddBookController extends HttpServlet {
 			String bookname=request.getParameter("b");
 			String author=request.getParameter("a");
 			String genre=request.getParameter("g");
-			
+			String issueStatus="Available";
 			b = new Book () ;
 			b.setName(bookname);
 			b.setAuthor(author);
 			b.setGenre(genre);
+			b.setIssueStatus(issueStatus);
 			Boolean flag = db.insertBook(b);
 			if(flag)
 			{
-				RequestDispatcher view = request.getRequestDispatcher("view.jsp");
+				RequestDispatcher view = request.getRequestDispatcher("Home.jsp");
 				view.forward(request, response);
 			}
+			else
+			{
+				RequestDispatcher view = request.getRequestDispatcher("addBook.jsp");
+				view.forward(request, response);
+			}
+			
 		}
 	}
 

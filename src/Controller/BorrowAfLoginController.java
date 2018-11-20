@@ -15,16 +15,16 @@ import Model.Dao;
 import Model.User;
 
 /**
- * Servlet implementation class HomeController - Page after Login
+ * Servlet implementation class BorrowAfLoginController
  */
-@WebServlet("/HomeController")
-public class HomeController extends HttpServlet {
+@WebServlet("/BorrowAfLoginController")
+public class BorrowAfLoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public HomeController() {
+    public BorrowAfLoginController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,29 +32,40 @@ public class HomeController extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-    /* Displays list of books added by the registered user to the site for
-     * borrowing.
-     * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
-     */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String button = request.getParameter("b1");
-		int id;
-		String username=""; //? Logged in user
+		User s;
 		Dao db = new Dao();
-		List <Book> b = db.selectAllBooksByUser(username);
-		request.setAttribute("sb", b);
-		if(button.equals("Add"))
+		
+		if(button.equals("ContactInfo"))
 		{
-				RequestDispatcher view = request.getRequestDispatcher("AddBook.jsp");
-				view.forward(request, response);
+			//How to display contact info for a particular book?
 		}
-		else if(button.equals("Delete"))
+		else if(button.equals("SearchBook"))
 		{
-			RequestDispatcher view = request.getRequestDispatcher("DeleteBook.jsp");
+			String book=request.getParameter("t1");
+			List <Book> b = db.selectBookByName(book);
+			request.setAttribute("sb", b);
+			RequestDispatcher view = request.getRequestDispatcher("DisplayBooks.jsp");
 			view.forward(request, response);
 		}
-		
+		else if(button.equals("SearchAuthor"))
+		{
+			String author=request.getParameter("t2");
+			List <Book> b = db.selectBookByAuthor(author);
+			request.setAttribute("sb", b);
+			RequestDispatcher view = request.getRequestDispatcher("DisplayBooks.jsp");
+			view.forward(request, response);
+			
+		}
+		else
+		{
+			List <Book> b = db.selectAllBooksForBorrow();
+			request.setAttribute("sb", b);
+		}
+	}
+
 	}
 
 	/**

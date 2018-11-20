@@ -36,10 +36,8 @@ public class LoginController extends HttpServlet {
 			
 		if(button.equals("Login"))
 		{
-		String username=request.getParameter("u");
+			String username=request.getParameter("u"); //MAKE GLOBAL?
 			String password=request.getParameter("p");
-			User s;
-			s.setUserName(username);
 			if(db.checkUser(username, password))
 	        {
 	            RequestDispatcher rs = request.getRequestDispatcher("Home.jsp");
@@ -47,7 +45,6 @@ public class LoginController extends HttpServlet {
 	        }
 	        else
 	        {
-	 
 	           RequestDispatcher rs = request.getRequestDispatcher("Login.jsp");
 	           rs.include(request, response);
 	        }

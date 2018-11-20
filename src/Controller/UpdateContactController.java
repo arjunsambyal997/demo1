@@ -1,7 +1,6 @@
 package Controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,21 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Model.Book;
 import Model.Dao;
 import Model.User;
 
 /**
- * Servlet implementation class HomeController - Page after Login
+ * Servlet implementation class UpdateContactController
  */
-@WebServlet("/HomeController")
-public class HomeController extends HttpServlet {
+@WebServlet("/UpdateContactController")
+public class UpdateContactController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public HomeController() {
+    public UpdateContactController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,29 +30,38 @@ public class HomeController extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-    /* Displays list of books added by the registered user to the site for
-     * borrowing.
-     * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
-     */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String button = request.getParameter("b1");
-		int id;
-		String username=""; //? Logged in user
+		User s;
 		Dao db = new Dao();
-		List <Book> b = db.selectAllBooksByUser(username);
-		request.setAttribute("sb", b);
-		if(button.equals("Add"))
+		String button = request.getParameter("b1");	
+		if(button.equals("Save"))
 		{
-				RequestDispatcher view = request.getRequestDispatcher("AddBook.jsp");
+					
+			String name=request.getParameter("n");
+			String email=request.getParameter("e");
+			String phone=request.getParameter("ph");
+			int cid=0; //user username to get contact id
+			boolean flag1=db.updateContactName(cid, name);
+			boolean flag2=db.updateContactEmail(cid, email);
+			boolean flag3=db.updateContactPhone(cid, phone);
+			if(flag1 && flag2 && flag3)
+			{
+				RequestDispatcher view = request.getRequestDispatcher("Home.jsp");
 				view.forward(request, response);
+			}
+			else
+			{
+				RequestDispatcher view = request.getRequestDispatcher("UpdateContact.jsp");
+				view.include(request, response);
+			}
 		}
-		else if(button.equals("Delete"))
+		else if(button.equals("Cancel))
 		{
-			RequestDispatcher view = request.getRequestDispatcher("DeleteBook.jsp");
+			RequestDispatcher view = request.getRequestDispatcher("Home.jsp");
 			view.forward(request, response);
 		}
-		
+			
 	}
 
 	/**
