@@ -37,7 +37,7 @@ public class IndexButtonController extends HttpServlet {
 		String button = request.getParameter("b1");
 		if(button.equals("Search"))
 		{
-		String bookname = request.getParameter("t1");
+		String bookname = request.getParameter("t0");
 		List <Book> lst = d.selectBookForBorrow(bookname);
 		request.setAttribute("ls", lst);
 		RequestDispatcher rs = request.getRequestDispatcher("indexSearch.jsp");

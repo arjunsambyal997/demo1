@@ -1,4 +1,4 @@
-## project dependencies
+## Project dependencies
 * Apache Tomcat v8.5
 * sql connector included in lib folder
 * MySql 
@@ -11,6 +11,7 @@
 * Import Book_List.sql in MySql database
 * Import porject in eclipse and configure build path
 > Configure build path -> Add Library -> add apache tomcat v8.5 folder
+
 > Configure build path -> Add External jar -> add mysql connector 
 * Start server and go to `http://localhost:8080/advJava` in your browser
 

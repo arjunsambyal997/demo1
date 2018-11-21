@@ -47,12 +47,12 @@ public class Dao {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection(url, user, pass);
-			sql = "INSERT INTO `Contact`(`contactid`,`name`, `email`, `phone`,`contactid`) VALUES (?,?,?,?)";
+			sql = "INSERT INTO `Contact`(`contactid`,`name`, `email`, `phone`) VALUES (?,?,?,?)";
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setInt(1, s.getId());
-			ps.setString(1, s.getName());
-			ps.setString(2, s.getEmail());
-			ps.setString(3, s.getPhone());
+			ps.setString(2, s.getName());
+			ps.setString(3, s.getEmail());
+			ps.setString(4, s.getPhone());
 			ps.executeUpdate();
 			con.close();
 		} catch (ClassNotFoundException e) {

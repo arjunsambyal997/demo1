@@ -20,7 +20,18 @@
 <!-- Latest compiled JavaScript -->
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+<script> 
+function f1(){
+	
+	
+}
+
+</script>
+
 </head>
+
+
 
 <body >
 	<nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
@@ -48,13 +59,12 @@
 		<table class="table " >
   <thead class ="thead-light">
     <tr>
-      <th scope="col"><input type= "text" placeholder = "Search" class="form-control " name = "t1" />
+      <th scope="col"><input type= "text" placeholder = "Search" class="form-control " name = "t0" />
       <input type ="submit" name ="b1" value = "Search" class="btn btn-dark" /></th>
-     
-       
     </tr>
   </thead>
 	</table>
+	</form>
 
 <%
 	List <Book> s = (List <Book> ) request.getAttribute("lst");
@@ -70,7 +80,9 @@
          <th scope="col"></th>
     </tr>
   </thead>
+  
   <tbody>
+ 
  <%
  	int i =1;
  	for (Book obj : s) {
@@ -81,13 +93,17 @@
       <td><%= obj.getAuthor()%></td>
       <td><%= obj.getGenre()%></td>
       <td><%= obj.getStatus()%></td>
-      <td><input type ="hidden" value = "<%= obj.getUserId()  %>" name ="t2" class ="btn btn-dark" > 
-      <input type ="submit" value ="Contact" name ="b1" class ="btn btn-dark" /> </td>
+      <td> 
+      <form action="search">
+        <input type ="hidden"  value = "<%=obj.getUserId() %>" name="t2" class ="btn btn-dark" />
+      <input type ="submit"value ="Contact" name ="b1" class ="btn btn-dark" /> 
+      </form>
+      </td>
     </tr>
    <%} %>
   </tbody>
 </table>
-</form>
+
 </div>
 
 </body>

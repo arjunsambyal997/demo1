@@ -55,7 +55,7 @@
     </tr>
   </thead>
 	</table>
-
+</form>
 <%
 	List <Book> s = (List <Book> ) request.getAttribute("ls");
 %>
@@ -81,13 +81,13 @@
       <td><%= obj.getAuthor()%></td>
       <td><%= obj.getGenre()%></td>
       <td><%= obj.getStatus()%></td>
-      <td><input type ="hidden" value = "<%= obj.getUserId()  %>" name ="t2" class ="btn btn-dark" > 
-      <input type ="submit" value ="Contact" name ="b1" class ="btn btn-dark" /> </td>
+      <td><form action ="search" ><input type ="hidden" value = "<%= obj.getUserId()  %>" name ="t2" class ="btn btn-dark" > 
+      <input type ="submit" value ="Contact" name ="b1" class ="btn btn-dark" /></form> </td>
     </tr>
    <%} %>
   </tbody>
 </table>
-</form>
+
 </div>
 
 </body>

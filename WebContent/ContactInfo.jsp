@@ -80,8 +80,8 @@
 <% User u = (User)request.getAttribute("con"); %>
 <div class ="col-md-6" style ="padding : 5%">
 	<h4>Name :</h4> <p> <%= u.getName() %></p> 
-	<h4>Email :</h4> <p> <%= u.getPhone() %></p> 
-	<h4>Phone :</h4> <p> <%= u.getEmail() %></p> 
+	<h4>Email :</h4> <p> <%= u.getEmail() %></p> 
+	<h4>Phone :</h4> <p> <%= u.getPhone() %></p> 
 </div>
 
 </div>
