@@ -1,4 +1,5 @@
 package Model;
+import java.io.Console;
 /*This class handles all the methods called in the Controller classes
  * for execution of functions connected to database.
  * Creates connection to the database.
@@ -25,7 +26,7 @@ public class Dao {
 			Connection con = DriverManager.getConnection(url, user, pass);
 			sql = "INSERT INTO `User` (`username`, `password`) VALUES (?,?)";
 			PreparedStatement ps = con.prepareStatement(sql);
-			ps.setString(1, s.getName());
+			ps.setString(1, s.getUserName());
 			ps.setString(2, s.getPassword());
 			ps.executeUpdate();
 			con.close();
@@ -46,12 +47,12 @@ public class Dao {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection(url, user, pass);
-			sql = "INSERT INTO `Contact`(`contactid`, `name`, `email`, `phone`) VALUES ([?,?,?,?)";
+			sql = "INSERT INTO `Contact`(`contactid`,`name`, `email`, `phone`,`contactid`) VALUES (?,?,?,?)";
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setInt(1, s.getId());
-			ps.setString(2, s.getName());
-			ps.setString(3, s.getEmail());
-			ps.setString(4, s.getPhone());
+			ps.setString(1, s.getName());
+			ps.setString(2, s.getEmail());
+			ps.setString(3, s.getPhone());
 			ps.executeUpdate();
 			con.close();
 		} catch (ClassNotFoundException e) {
@@ -71,7 +72,7 @@ public class Dao {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection(url, user, pass);
-			sql = "INSERT INTO `Borrower`(`borrowid`, `bookid`, `uid`) VALUES (?,?,?)";
+			sql = "INSERT INTO `Borrower`(`borrowid`, `bookid`, `ownerid`) VALUES (?,?,?)";
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setInt(1, b.getId());
 			ps.setInt(2, b.getBookId());
@@ -95,7 +96,7 @@ public class Dao {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection(url, user, pass);
-			sql = "INSERT INTO `BookStatus`(`bookid`, `status`) VALUES (?,?)";
+			sql = "INSERT INTO `BookStatus`(`bid`, `status`) VALUES (?,?)";
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setInt(1, b.getBookId());
 			ps.setString(2, b.getIssueStatus());
@@ -118,13 +119,13 @@ public class Dao {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection(url, user, pass);
-			sql = "INSERT INTO `Book`(`uid`, `name`, `author`, `genre`, `status`) VALUES (?,?,?,?,?)";
+			sql = "INSERT INTO `Book`( `name`, `author`, `genre`, `state` ,`userid`) VALUES (?,?,?,?,?)";
 			PreparedStatement ps = con.prepareStatement(sql);
-			ps.setInt(1, b.getUserId());
-			ps.setString(2, b.getName());
-			ps.setString(3, b.getAuthor());
-			ps.setString(4, b.getGenre());
-			ps.setString(5, b.getStatus());
+			ps.setString(1, b.getName());
+			ps.setString(2, b.getAuthor());
+			ps.setString(3, b.getGenre());
+			ps.setString(4, b.getStatus());
+			ps.setInt(5, b.getUserId());
 			ps.executeUpdate();
 			con.close();
 		} catch (ClassNotFoundException e) {
@@ -214,7 +215,7 @@ public class Dao {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection(url, user, pass);
-			sql = "UPDATE `Contact` SET `phone`= ? WHERE WHERE `contactid`=?";
+			sql = "UPDATE `Contact` SET `phone`= ? WHERE `contactid`=?";
 			PreparedStatement ps = con.prepareStatement(sql);			
 			ps.setString(1, phone);
 			ps.setInt(2, contactId);		
@@ -260,7 +261,7 @@ public class Dao {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection(url, user, pass);
-			sql = "UPDATE `BookStatus` SET `status`= ? WHERE `bookid`=?";
+			sql = "UPDATE `BookStatus` SET `status`= ? WHERE `bid`=?";
 			PreparedStatement ps = con.prepareStatement(sql);			
 			ps.setString(1, issueStatus);
 			ps.setInt(2, bookId);
@@ -376,7 +377,7 @@ public class Dao {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection(url, user, pass);
-			sql = "Delete from User where id=?";
+			sql = "Delete from User where uid=?";
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setInt(1, uid);
 			ps.executeUpdate();
@@ -420,11 +421,15 @@ public class Dao {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection(url, user, pass);
-			sql = "DELETE FROM `Book` WHERE bookid=?";
+			sql = "DELETE FROM `BookStatus` WHERE bid=?";
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setInt(1, bookId);
 			ps.executeUpdate();
-			sql = "DELETE FROM `BookStatus` WHERE bookid=?";
+			sql = "DELETE FROM `Borrower` WHERE bookid=?";
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, bookId);
+			ps.executeUpdate();
+			sql = "DELETE FROM `Book` WHERE bookid=?";
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, bookId);
 			ps.executeUpdate();
@@ -464,9 +469,66 @@ public class Dao {
 		return result;
 	}
 	
+	public int selectUser(String username) {
+		int id = -1;
+		try {
+			
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection(url, user, pass);
+			sql="Select `uid`,`username` from User where username = ?";
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setString(1 , username);
+			ResultSet rs = ps.executeQuery();
+
+			while(rs.next()) {
+				id = rs.getInt(1);		
+			}
+
+			con.close();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return id;
+
+
+	}
+	
+	public String getStatus(int bookid) {
+		String status = "";
+		
+		try {
+			
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection(url, user, pass);
+			sql="SELECT  `status` FROM `BookStatus` WHERE bid = ?";
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setInt(1, bookid);
+			ResultSet rs = ps.executeQuery();
+
+			while(rs.next()) {
+			status = rs.getString(1);	
+				
+			}
+
+			con.close();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return status;
+		
+	}
+	
 	//returns name,email and phone for a user by id
-	public List <User> selectUser(int id) {
-		List <User> lst = new ArrayList<>();
+	public User getUserDetails(int id) {
+		User u = new User();
 		try {
 			
 			Class.forName("com.mysql.jdbc.Driver");
@@ -477,13 +539,12 @@ public class Dao {
 			ResultSet rs = ps.executeQuery();
 
 			while(rs.next()) {
-				User u = new User();
 				u.setId(id);
 				u.setUserName(rs.getString(1));
 				u.setName(rs.getString(2));
 				u.setEmail(rs.getString(3));
 				u.setPhone(rs.getString(4));		
-				lst.add(u);
+				
 			}
 
 			con.close();
@@ -494,14 +555,14 @@ public class Dao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return lst;
+		return u;
 
 
 	}
 	
 	//returns uid,name,email and phone for a user by username
-	public List <User> selectUser(String username) {
-		List <User> lst = new ArrayList<>();
+	public User getUserDetails(String username) {
+		User u = new User();
 		try {
 			
 			Class.forName("com.mysql.jdbc.Driver");
@@ -512,13 +573,12 @@ public class Dao {
 			ResultSet rs = ps.executeQuery();
 
 			while(rs.next()) {
-				User u = new User();
 				u.setId(rs.getInt(1));
 				u.setUserName(username);
 				u.setName(rs.getString(2));
 				u.setEmail(rs.getString(3));
 				u.setPhone(rs.getString(4));	
-				lst.add(u);
+				
 			}
 
 			con.close();
@@ -529,7 +589,7 @@ public class Dao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return lst;
+		return u;
 
 
 	}
@@ -567,25 +627,25 @@ public class Dao {
 	}
 	
 	//searches for a book in book table and returns its status as well
-	public List <Book> selectBookByName(String bookname) {
-		List <Book> lst = new ArrayList<>();
+	public Book selectBookByName(String bookname) {
+	 Book b = new Book();
 		try {
 			
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection(url, user, pass);
-			sql="Select `name`, `author`, `genre`, `state` , `status` from Book Inner Join BookStatus where Book.bookid = BookStatus.bookid and  name = ? ";
+			sql="Select `name`, `author`, `genre`, `state` ,`bookid`,`status` from Book Inner Join BookStatus on Book.bookid = BookStatus.bid AND name = ?";
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setString(1, bookname);
 			ResultSet rs = ps.executeQuery();
 
 			while(rs.next()) {
-				Book b = new Book();
 				b.setName(rs.getString(1));
 				b.setAuthor(rs.getString(2));
 				b.setGenre(rs.getString(3));
 				b.setStatus(rs.getString(4));
-				b.setIssueStatus(rs.getString(5));
-				lst.add(b);
+				b.setBookId(rs.getInt(5));
+				b.setIssueStatus(rs.getString(6));
+				
 			}
 			con.close();
 		} catch (ClassNotFoundException e) {
@@ -595,7 +655,7 @@ public class Dao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return lst;
+		return b;
 
 
 	
@@ -607,7 +667,7 @@ public class Dao {
 			
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection(url, user, pass);
-			sql="Select `name`, `author`, `genre`, `state` , `status` from Book Inner Join BookStatus where Book.bookid = BookStatus.bookid and  author = ? ";
+			sql="Select `name`, `author`, `genre`, `state` , `status` from Book Inner Join BookStatus where Book.bookid = BookStatus.bid and  author = ? ";
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setString(1, author);
 			ResultSet rs = ps.executeQuery();
@@ -640,7 +700,9 @@ public class Dao {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection(url, user, pass);
-			sql="SELECT `name`, `author`, `genre`, `state` FROM Book INNER JOIN User ON User.uid = Book.uid And User.username =?";
+			sql="SELECT `name`, `author`, `genre`, `state` ,`userid` ,`status` "+
+			"FROM (( Book INNER JOIN User ON User.uid = Book.userid And User.username =?)"
+					+ " Inner Join BookStatus On Book.bookid = BookStatus.bid)";
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setString(1, name);
 			ResultSet rs = ps.executeQuery();
@@ -651,6 +713,8 @@ public class Dao {
 				b.setAuthor(rs.getString(2));
 				b.setGenre(rs.getString(3));
 				b.setStatus(rs.getString(4));
+				b.setUserId(rs.getInt(5));
+				b.setIssueStatus(rs.getString(6));
 				lst.add(b);
 			}
 			con.close();
@@ -672,7 +736,7 @@ public class Dao {
 
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection(url, user, pass);
-			sql="SELECT `name`, `author`, `genre`, `state` FROM Book INNER JOIN User ON User.uid = Book.uid And User.uid =?";
+			sql="SELECT `name`, `author`, `genre`, `state` FROM Book INNER JOIN User ON User.uid = Book.userid And User.uid =?";
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setInt(1, uid);
 			ResultSet rs = ps.executeQuery();
@@ -697,23 +761,26 @@ public class Dao {
 
 	}
 	
-	//checks for a specific book by bookname of a specific user  by userid
-	public Book selectBookByUser(String bookname ,int uid) {
+	//checks for a specific book by bookname of a specific user  by username
+	public Book selectBookByUser(String bookname , String username) {
 		Book b = new Book();
 		try {
 
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection(url, user, pass);
-			sql="SELECT `name`, `author`, `genre`, `state` FROM Book INNER JOIN User ON User.uid = Book.uid And Book.name =? And user.uid= ?";
+			sql="SELECT  `name`, `author`, `genre`, `state`,`bookid` FROM Book INNER JOIN User ON User.uid = Book.userid And Book.name =? And User.username= ?";
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setString(1, bookname);
-			ps.setInt(2, uid);
+			ps.setString(2, username);
 			ResultSet rs = ps.executeQuery();
-			
+			while(rs.next())
+			{
 				b.setName(rs.getString(1));
 				b.setAuthor(rs.getString(2));
 				b.setGenre(rs.getString(3));
 				b.setStatus(rs.getString(4));				
+				b.setBookId(rs.getInt(5));	
+			}
 				con.close();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -722,6 +789,7 @@ public class Dao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		return b;
 
 	}
@@ -733,7 +801,7 @@ public class Dao {
 
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection(url, user, pass);
-			sql="SELECT `name`, `author`, `genre`, `state` FROM Book INNER JOIN BookStatus ON BookStatus.bookid = Book.bookid And BookStatus.status = \"available\" ";
+			sql="SELECT `name`, `author`, `genre`, `state` , `userid`,`status` FROM Book INNER JOIN BookStatus ON BookStatus.bid = Book.bookid And BookStatus.status = \"available\" ";
 			PreparedStatement ps = con.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();		
 			while(rs.next()) {
@@ -742,6 +810,39 @@ public class Dao {
 				b.setAuthor(rs.getString(2));
 				b.setGenre(rs.getString(3));
 				b.setStatus(rs.getString(4));
+				b.setUserId(rs.getInt(5));
+				lst.add(b);
+			}
+			con.close();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return lst;
+
+	}
+	
+	public List <Book> selectAllBooksForBorrowByUser(int id) {
+		List <Book> lst = new ArrayList<>();
+		try {
+
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection(url, user, pass);
+			sql="SELECT `name`, `author`, `genre`, `state` , `userid`,`status` FROM Book INNER JOIN BookStatus ON BookStatus.bid = Book.bookid And BookStatus.status = \"available\" and Book.userid =? ";
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setInt(1,id);
+			ResultSet rs = ps.executeQuery();		
+			while(rs.next()) {
+				Book b = new Book();
+				b.setName(rs.getString(1));
+				b.setAuthor(rs.getString(2));
+				b.setGenre(rs.getString(3));
+				b.setStatus(rs.getString(4));
+				b.setUserId(rs.getInt(5));
+				b.setIssueStatus(rs.getString(6));
 				lst.add(b);
 			}
 			con.close();
@@ -764,7 +865,7 @@ public class Dao {
 
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection(url, user, pass);
-			sql="SELECT `name`, `author`, `genre`, `state` FROM Book INNER JOIN BookStatus ON BookStatus.bookid = Book.bookid And BookStatus.status = \"available\" And Book.name = ?";
+			sql="SELECT `name`, `author`, `genre`, `state` ,`userid` FROM Book INNER JOIN BookStatus ON BookStatus.bid = Book.bookid And BookStatus.status = \"available\" And Book.name = ?";
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setString(1, bookname);
 			ResultSet rs = ps.executeQuery();
@@ -774,6 +875,7 @@ public class Dao {
 				b.setAuthor(rs.getString(2));
 				b.setGenre(rs.getString(3));
 				b.setStatus(rs.getString(4));
+				b.setUserId(rs.getInt(5));
 				lst.add(b);
 			}				
 				con.close();

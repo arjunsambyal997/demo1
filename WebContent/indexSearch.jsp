@@ -22,7 +22,7 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 </head>
 
-<body >
+<body>
 	<nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
 
 		<div class="container-fluid">
@@ -57,7 +57,7 @@
 	</table>
 
 <%
-	List <Book> s = (List <Book> ) request.getAttribute("lst");
+	List <Book> s = (List <Book> ) request.getAttribute("ls");
 %>
 	<table class="table table-striped table-bordered ">
   <thead class ="thead-dark">

@@ -1,4 +1,4 @@
-<%@page import="Model.*"%>
+ <%@page import="Model.*"%>
 <%@page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -22,7 +22,8 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 </head>
 
-<body >
+
+<body>
 	<%
 			String name =(String) session.getAttribute("n");
 			%>
@@ -58,22 +59,49 @@
 		</div>
 	</nav>
 
+
+
 <div class = "container" style = "padding : 100px" >
-	<form action="borrowbutton" class = "form-inline form-group mb-2" >
+	<form action="homebutton" class = "form-inline form-group mb-2" >
 		<table class="table " >
   <thead class ="thead-light">
     <tr>
-      <th scope="col"><input type= "text" placeholder = "Enter book or user" class="form-control " name = "t1" />
-      <input type ="submit" name ="b1" value = "SearchBook" class="btn btn-dark" />
-       <input type ="submit" name ="b1" value = "SearchUser" class="btn btn-dark" /></th>
-     
-       
+      <th scope="col">
+      <input type= "text" placeholder = "Enter book name" class="form-control " name = "t1" />
+       <input type= "text" placeholder = "Enter author name" class="form-control " name = "t2" />
+        <input type= "text" placeholder = "Enter genre name" class="form-control " name = "t3" />
+       <select class="form-control" name="t4">
+      <option selected value ="Completed" >Completed</option>
+      <option value = "Reading">Reading</option>
+      <option value ="Plan to Read">Plan to Read</option>
+       <option value = "Dropped ">Dropped</option>
+    	</select>
+    <input type="checkbox" class="form-check-input" name ="t5" value = "available" id="exampleCheck1">Available
+   
+   
+   
+      </th>
     </tr>
   </thead>
 	</table>
+	
+	<table class="table " >
+  <thead class ="thead-light">
+    <tr>
+    	 <th scope="col">
+    	   <input type ="submit" name ="b1" value = "Search" class="btn btn-dark" /></th>
+     <th scope="col"> <input type ="submit" name ="b1" value = "Add Book" class="btn btn-dark" /></th>
+     <th scope="col">    <input type ="submit" name ="b1" value = "Remove" class="btn btn-dark" /></th>
+    <th scope="col">  <input type ="submit" name ="b1" value = "Update" class="btn btn-dark" />
+     	</th>
+    </tr>
+  </thead>
+	</table>
+	
 
+</form>
 <%
-	List <Book> s = (List <Book> ) request.getAttribute("lst");
+	Book obj = (Book) request.getAttribute("book");
 %>
 	<table class="table table-striped table-bordered ">
   <thead class ="thead-dark">
@@ -82,28 +110,24 @@
       <th scope="col">Name</th>
        <th scope="col">Author</th>
         <th scope="col">genre</th>
-        <th scope="col">State</th>
-         <th scope="col"></th>
+    <th scope="col">Progress</th>
+           <th scope="col">Status</th>
+ 
     </tr>
   </thead>
   <tbody>
- <%
- 	int i =1;
- 	for (Book obj : s) {
- %>
+
     <tr>
-      <th scope="row"><%=i++ %></th>
+      <th scope="row">#</th>
       <td><%= obj.getName()%></td>
       <td><%= obj.getAuthor()%></td>
       <td><%= obj.getGenre()%></td>
       <td><%= obj.getStatus()%></td>
-      <td><input type ="hidden" value = "<%= obj.getUserId()  %>" name ="t2" class ="btn btn-dark" > 
-      <input type ="submit" value ="Contact" name ="b1" class ="btn btn-dark" /></a> </td>
+        <td><%= obj.getIssueStatus()%></td>
     </tr>
-   <%} %>
+
   </tbody>
 </table>
-</form>
 </div>
 
 </body>

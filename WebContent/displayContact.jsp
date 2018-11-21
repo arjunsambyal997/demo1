@@ -1,4 +1,4 @@
-<%@page import="Model.*"%>
+ <%@page import="Model.*"%>
 <%@page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -59,35 +59,34 @@
 	</nav>
 
 
-	<!-- SIGNUP FORM  -->
-<div class = "container">
-<div class = "row">	
-<div class ="col-md-6">
-<form action="contactbutton" class= "form-inline ">
-	<div class="container form-group  " style="height: 500px; width: 240px;  padding-top: 5%">
-		<h1 class="display-6">Contact Info</h1>
-		
-			<input type="text" name="n" placeholder="Name" required="required" class ="form-control" /> <br>
-			<input type="text" name="e" placeholder="Email" required="required" class ="form-control"  /> <br>
-			<input type="text"	name="ph" placeholder="Contact No." required="required" class ="form-control" /> <br>
-			<input type="submit" name="b1" value="Update" class="btn btn-dark btn-block" />
-	
-		
-		</div>
-</form>
-</div>
 
-<% User u = (User)request.getAttribute("con"); %>
-<div class ="col-md-6" style ="padding : 5%">
-	<h4>Name :</h4> <p> <%= u.getName() %></p> 
-	<h4>Email :</h4> <p> <%= u.getPhone() %></p> 
-	<h4>Phone :</h4> <p> <%= u.getEmail() %></p> 
-</div>
+<div class = "container" style = "padding : 100px" >
+<%
+	User obj = (User) request.getAttribute("ls");
+%>
+	<table class="table table-striped table-bordered ">
+  <thead class ="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">UserName</th>
+       <th scope="col">Name</th>
+        <th scope="col">email</th>
+        <th scope="col">phone</th>
+    </tr>
+  </thead>
+  <tbody>
 
+    <tr>
+      <th scope="row">#</th>
+      <td><%= obj.getUserName()%></td>
+      <td><%= obj.getName()%></td>
+      <td><%= obj.getPhone()%></td>
+      <td><%= obj.getEmail()%></td>
+    </tr>
+
+  </tbody>
+</table>
 </div>
-</div>
-	<script
-		src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
 </body>
 </html>

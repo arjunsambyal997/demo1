@@ -1,6 +1,8 @@
 package Controller;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -30,6 +32,9 @@ public class SignOutController extends HttpServlet {
 		// TODO Auto-generated method stub
 		HttpSession session=request.getSession();
 		session.invalidate();
+		RequestDispatcher view = request.getRequestDispatcher("index");
+		view.forward(request, response);
+		
 	}
 
 	/**

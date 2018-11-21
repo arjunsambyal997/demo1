@@ -1,91 +1,135 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" import="Model.Book, java.util.*"
-    pageEncoding="UTF-8"%>
+ <%@page import="Model.*"%>
+<%@page import="java.util.*"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
-		<link rel="stylesheet" href="./css/Home.css">
-		<style class="cp-pen-styles">@import url(https://fonts.googleapis.com/css?family=Open+Sans);</style>
-		<title>Home</title>
-	</head>
-	
-	<body>
-		<nav class="navbar navbar-expand-lg navbar-light bg-light md-2">
-			<a class="navbar-brand" class="container-fluid" class="active" href="http://localhost:8080/Library/Home.jsp">Home</a>
-			<div class="container-fluid">
-				<ul class="nav navbar-nav">
-					<li><a class="nav-link" href="http://localhost:8080/Library/BorrowAfLogin.jsp">Borrow</a></li>
-					<li><a class="nav-link" href="http://localhost:8080/Library/UpdateContact.jsp">Contact-Info</a></li>
-				</ul>
-				<ul class="navbar-nav ml-auto">
-					<li><a class="nav-link" href="http://localhost:8080/Library/Borrow.jsp">Sign-Out</a></li>
-				</ul>
-			</div>
-		</nav>
-	
-		<div class="container-fluid my-2">
-			<div class="row justify-content-md-center">
-				<a href="addBook.jsp" class="col col-lg-2"><button type="button" class="btn btn-primary btn-block btn-large">Add Books</button></a>
-				<a href="deleteBook.jsp" class="col col-lg-2"><button type="button" class="btn btn-primary btn-block btn-large">Delete Books</button></a>
-			</div>
-		
-			<div class="row justify-content-md-center my-2">
-				<h2>
-					List of Books Added by the User
-				</h2>
-			</div>
-		
-			<%
-				List <Book> book = (List<Book>)request.getAttribute("sb");
+<head>
+<meta charset="ISO-8859-1">
+<title>Book barter portal</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+<!-- jQuery library -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+	<%
+			String name =(String) session.getAttribute("n");
 			%>
-			<div class="container my-2">
-				<table class="table">
-					<thead>
-						<tr>
-							<th><h4>Book Name</h4></th>
-							<th><h4>Author</h4></th>
-							<th><h4>Genre</h4></th>
-							<th><h4>Status</h4></th>
-							<th><h4>Contact</h4></th>
-						</tr>
-					</thead>
+
+	<nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
+
+		<div class="container-fluid">
+
+			<div class="navbar-header">
+			<ul class = "nav navbar-nav ml-auto w-100">
+				<li class="nav-item" ><a class="navbar-brand" href="home">Home</a></li>
 				
-					<tbody>
-						<% if(book!=null)
-						{
-						for(Book obj : book) {
-						%>
-    					<tr>
-    						<td scope="col"><%obj.getBookId(); %> </td>
-    						<td scope="col"><%obj.getName(); %> </td>
-    						<td scope="col"><%obj.getAuthor(); %> </td>
-    						<td scope="col"><%obj.getStatus(); %> </td>
-							<!-- to be declared -->				
-							<td scope="col"><a href="Contact Controller"><button type="button" class="btn btn-sm">Contact</button></a></td>    			
-						</tr>
-    					<% }
-							}
-							else {
-						%>
-						<tr>
-							<td scope="rowgroup"><h3>No Books Added</h3></td>
-						</tr>
+				<li class="nav-item" ><a class="nav-link" href="borrow">Borrow</a>
+					</li>
+				<li class="nav-item" ><a class="nav-link" href="contact">Contact Info</a>
+					</li>
+				</ul>
+			</div>
+			<div>
+				<ul class="nav navbar-nav ml-auto w-100 " >
+					<li class="nav-item"> <span class ="nav-link"> Welcome <%= name %> </span>
+					</li>
+					</ul>
+			</div>
+			<div>
+			
+				<ul class="nav navbar-nav ml-auto w-100 justify-content-end">
+					<li class="nav-item"><a class="nav-link" href="signout">SignOut</a>
+					</li>
 					
-						<% } %>
-	    			</tbody>
-				</table>
+				</ul>	
 			</div>
-			</div>
-			<div class="container" style = "padding-right : 350px ; padding-left : 350px;" >
-				<form action="Search" class="form-inline form-group">
-					<input type="search" placeholder="Search Book">
-					<button type="button" class="btn btn-primary btn-block btn-large">Search Book</button>
-				</form>
-			</div>
+		</div>
+	</nav>
 
 
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+<div class = "container" style = "padding : 100px" >
+	<form action="homebutton" class = "form-inline form-group mb-2" >
+		<table class="table " >
+  <thead class ="thead-light">
+    <tr>
+      <th scope="col">
+      <input type= "text" placeholder = "Enter book name" class="form-control " name = "t1" />
+       <input type= "text" placeholder = "Enter author name" class="form-control " name = "t2" />
+        <input type= "text" placeholder = "Enter genre name" class="form-control " name = "t3" />
+   	 <select class="form-control" name="t4">
+      <option selected value ="Completed" >Completed</option>
+      <option value = "Reading">Reading</option>
+      <option value ="Plan to Read">Plan to Read</option>
+       <option value = "Dropped ">Dropped</option>
+    	</select>
+    <input type="checkbox" class="form-check-input" name ="t5" value = "available" id="exampleCheck1">Available
+   
+   
+      </th>
+    </tr>
+  </thead>
+	</table>
+	
+	<table class="table " >
+  <thead class ="thead-light">
+    <tr>
+    	 <th scope="col">
+    	   <input type ="submit" name ="b1" value = "Search" class="btn btn-dark" /></th>
+     <th scope="col"> <input type ="submit" name ="b1" value = "Add Book" class="btn btn-dark" /></th>
+     <th scope="col">    <input type ="submit" name ="b1" value = "Remove" class="btn btn-dark" /></th>
+    <th scope="col">  <input type ="submit" name ="b1" value = "Update" class="btn btn-dark" />
+     	</th>
+    </tr>
+  </thead>
+	</table>
+	
+
+</form>
+<%
+	List <Book> s = (List <Book> ) request.getAttribute("sb");
+%>
+	<table class="table table-striped table-bordered ">
+  <thead class ="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+       <th scope="col">Author</th>
+        <th scope="col">genre</th>
+        <th scope="col">Progress</th>
+           <th scope="col">Status</th>
+ 
+    </tr>
+  </thead>
+  <tbody>
+ <%
+ 	int i =1;
+ 	for (Book obj : s) {
+ %>
+    <tr>
+      <th scope="row"><%=i++ %></th>
+      <td><%= obj.getName()%></td>
+      <td><%= obj.getAuthor()%></td>
+      <td><%= obj.getGenre()%></td>
+      <td><%= obj.getStatus()%></td>
+      <td><%= obj.getIssueStatus()%></td>
+    </tr>
+   <%} %>
+  </tbody>
+</table>
+</div>
+
 </body>
 </html>
-

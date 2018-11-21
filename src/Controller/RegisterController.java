@@ -35,6 +35,7 @@ public class RegisterController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		User s;
+		Boolean flag;
 		Dao db = new Dao();
 		String button = request.getParameter("b1");	
 		if(button.equals("Register"))
@@ -55,10 +56,15 @@ public class RegisterController extends HttpServlet {
 				s.setName(name);
 				s.setPassword(password);
 				s.setUserName(username);
-				Boolean flag = db.insertContact(s);
+				flag = db.insertUser(s);
+				int uid = db.selectUser(s.getUserName());
+				s.setId(uid);
+				if(flag)
+					flag = db.insertContact(s);
+					
 				if(flag)
 				{
-					RequestDispatcher view = request.getRequestDispatcher("Home.jsp");
+					RequestDispatcher view = request.getRequestDispatcher("Login.jsp");
 					view.forward(request, response);
 				}
 			}

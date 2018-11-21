@@ -1,6 +1,8 @@
 package Controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.*;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -8,21 +10,19 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import Model.Book;
-import Model.Dao;
+import Model.*;
 
 /**
- * Servlet implementation class DeleteBookController
+ * Servlet implementation class IndexController
  */
-@WebServlet("/deletebook")
-public class DeleteBookController extends HttpServlet {
+@WebServlet("/index")
+public class IndexController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DeleteBookController() {
+    public IndexController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,27 +30,13 @@ public class DeleteBookController extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-    
-    /* Selects book with entered id from the database and deletes it from the
-     * same to make it unavailable on the borrower list.
-     * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
-     */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String button = request.getParameter("b1");
-		Book b;
-		Dao db = new Dao();
-		if(button.equals("DeleteBook")) 
-		{	
-			int id=Integer.parseInt(request.getParameter("b"));
-			String name=request.getParameter("i");
-			boolean flag = db.deleteBook(id);
-			if(flag)
-			{
-				RequestDispatcher view = request.getRequestDispatcher("view.jsp");
-				view.forward(request, response);
-			}
-		}
+		Dao d = new Dao();
+		List <Book> lst = d.selectAllBooksForBorrow();
+		request.setAttribute("lst", lst);
+		RequestDispatcher rs = request.getRequestDispatcher("index.jsp");
+		rs.include(request, response);
 	}
 
 	/**

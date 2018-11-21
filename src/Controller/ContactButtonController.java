@@ -1,6 +1,8 @@
 package Controller;
- import java.io.IOException;
- import javax.servlet.RequestDispatcher;
+
+import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,58 +12,62 @@ import javax.servlet.http.HttpSession;
 
 import Model.Dao;
 import Model.User;
- /**
- * Servlet implementation class RegisterController
+
+/**
+ * Servlet implementation class ContactButtonController
  */
-@WebServlet(name = "login", urlPatterns = { "/login" })
-public class LoginController extends HttpServlet {
+@WebServlet("/contactbutton")
+public class ContactButtonController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginController() {
+    public ContactButtonController() {
         super();
         // TODO Auto-generated constructor stub
     }
- 	/**
+
+	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-    /* Checks if the user name and password match from the database 
-     * and forwards to Home Page
-     * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
-     */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		User s;
 		Dao db = new Dao();
 		String button = request.getParameter("b1");	
-			
-		if(button.equals("Login"))
-		{
-			String username=request.getParameter("u"); //MAKE GLOBAL?
-			String password=request.getParameter("p");
-			if(db.checkUser(username, password))
-	        {
-				HttpSession session=request.getSession();
-				session.setAttribute("n",username);
-	            RequestDispatcher rs = request.getRequestDispatcher("home");
-	            rs.forward(request, response);
-	        }
-	        else
-	        {
-	           RequestDispatcher rs = request.getRequestDispatcher("Login.jsp");
-	           rs.include(request, response);
-	        }
-		}
+		boolean flag = true ;
+		HttpSession session = request.getSession();
+		String username = (String) session.getAttribute("n");
 		
-				
-				
+		if(button.equals("Update"))
+		{
+					
+			String name=request.getParameter("n");
+			String email=request.getParameter("e");
+			String phone=request.getParameter("ph");
+			int cid= db.selectUser(username); 
+			if(flag)
+			 flag=db.updateContactName(cid, name);
+			if(flag)
+			flag=db.updateContactEmail(cid, email);
+			if(flag)
+			flag=db.updateContactPhone(cid, phone);
+			if(flag)
+			{
+				RequestDispatcher view = request.getRequestDispatcher("contact");
+				view.forward(request, response);
+			}
+		
+		}
 	}
- 	/**
+
+	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
- }
+
+}

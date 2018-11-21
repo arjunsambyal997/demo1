@@ -22,34 +22,50 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 </head>
 
-<body >
+<body>
+	<%
+			String name =(String) session.getAttribute("n");
+			%>
+
 	<nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
 
 		<div class="container-fluid">
 
 			<div class="navbar-header">
-				<a class="navbar-brand" href="index">Home</a>
+			<ul class = "nav navbar-nav ml-auto w-100">
+				<li class="nav-item" ><a class="navbar-brand" href="home">Home</a></li>
+				
+				<li class="nav-item" ><a class="nav-link" href="borrow">Borrow</a>
+					</li>
+				<li class="nav-item" ><a class="nav-link" href="contact">Contact Info</a>
+					</li>
+				</ul>
 			</div>
 			<div>
+				<ul class="nav navbar-nav ml-auto w-100 " >
+					<li class="nav-item"> <span class ="nav-link"> Welcome <%= name %> </span>
+					</li>
+					</ul>
+			</div>
+			<div>
+			
 				<ul class="nav navbar-nav ml-auto w-100 justify-content-end">
-					<li class="nav-item"><a class="nav-link" href="SignUp.jsp">Register</a>
+					<li class="nav-item"><a class="nav-link" href="signout">SignOut</a>
 					</li>
-					<li class="nav-item"><a class="nav-link" href="Login.jsp">SignIn</a>
-					</li>
+					
 				</ul>	
 			</div>
 		</div>
 	</nav>
-
-
-
 <div class = "container" style = "padding : 100px" >
-	<form action="search" class = "form-inline form-group mb-2" >
+	<form action="borrowbutton" class = "form-inline form-group mb-2" >
 		<table class="table " >
   <thead class ="thead-light">
     <tr>
       <th scope="col"><input type= "text" placeholder = "Search" class="form-control " name = "t1" />
-      <input type ="submit" name ="b1" value = "Search" class="btn btn-dark" /></th>
+      <input type ="submit" name ="b1" value = "SearchBook" class="btn btn-dark" />      
+       <input type ="submit" name ="b1" value = "SearchUser" class="btn btn-dark" /></th>
+     
      
        
     </tr>
@@ -57,7 +73,7 @@
 	</table>
 
 <%
-	List <Book> s = (List <Book> ) request.getAttribute("lst");
+	List <Book> s = (List <Book> ) request.getAttribute("ls");
 %>
 	<table class="table table-striped table-bordered ">
   <thead class ="thead-dark">
@@ -82,7 +98,7 @@
       <td><%= obj.getGenre()%></td>
       <td><%= obj.getStatus()%></td>
       <td><input type ="hidden" value = "<%= obj.getUserId()  %>" name ="t2" class ="btn btn-dark" > 
-      <input type ="submit" value ="Contact" name ="b1" class ="btn btn-dark" /> </td>
+      <input type ="submit" value ="Contact" name ="b1" class ="btn btn-dark" /></td>
     </tr>
    <%} %>
   </tbody>

@@ -9,23 +9,22 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import Model.Book;
 import Model.Dao;
 import Model.User;
 
 /**
- * Servlet implementation class HomeController - Page after Login
+ * Servlet implementation class SearchController
  */
-@WebServlet("/home")
-public class HomeController extends HttpServlet {
+@WebServlet("/search")
+public class IndexButtonController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public HomeController() {
+    public IndexButtonController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,20 +32,24 @@ public class HomeController extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-    /* Displays list of books added by the registered user to the site for
-     * borrowing.
-     * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
-     */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		HttpSession session=request.getSession();
-		String username = (String) session.getAttribute("n");
-		Dao db = new Dao();
-		List <Book> b = db.selectAllBooksByUser(username);
-		request.setAttribute("sb", b);
-		  RequestDispatcher rs = request.getRequestDispatcher("Home.jsp");
-          rs.forward(request, response);
-		
+		Dao d = new Dao();
+		String button = request.getParameter("b1");
+		if(button.equals("Search"))
+		{
+		String bookname = request.getParameter("t1");
+		List <Book> lst = d.selectBookForBorrow(bookname);
+		request.setAttribute("ls", lst);
+		RequestDispatcher rs = request.getRequestDispatcher("indexSearch.jsp");
+		rs.include(request, response);
+		}
+		else if(button.equals("Contact")) {
+		int uid = Integer.parseInt(request.getParameter("t2")) ;
+		User lst = d.getUserDetails(uid); 
+	    request.setAttribute("ls", lst);
+		RequestDispatcher view = request.getRequestDispatcher("displayContact.jsp");
+		view.forward(request, response);
+		}
 	}
 
 	/**

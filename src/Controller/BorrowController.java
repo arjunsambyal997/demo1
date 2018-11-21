@@ -10,14 +10,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Model.Dao;
-import Model.User;
-import Model.Book;
-
+import Model.*;
 /**
  * Servlet implementation class BorrowController
  */
-@WebServlet("/BorrowController")
+@WebServlet("/borrow")
 public class BorrowController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -38,28 +35,12 @@ public class BorrowController extends HttpServlet {
      * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		String button = request.getParameter("b1");
-		User s;
+		Dao d = new Dao();
+		List <Book> lst = d.selectAllBooksForBorrow();
+		request.setAttribute("lst", lst);
+		RequestDispatcher rs = request.getRequestDispatcher("Borrow.jsp");
+		rs.include(request, response);
 		
-		Dao db = new Dao();
-		if(button.equals("SearchBook"))
-		{
-			String book=request.getParameter("t1");
-			List <Book> b1 = db.selectBookByName(book);
-			request.setAttribute("bo", b1);
-				RequestDispatcher view = request.getRequestDispatcher("view.jsp");
-				view.forward(request, response);
-		}
-		else if(button.equals("SearchAuthor"))
-		{
-			String author=request.getParameter("t2");
-			List <Book> b1 = db.selectBookByAuthor(author);
-			request.setAttribute("bo", b1);
-				RequestDispatcher view = request.getRequestDispatcher("view.jsp");
-				view.forward(request, response);
-			
-		}
 	}
 
 	/**

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 19, 2018 at 06:46 AM
+-- Generation Time: Nov 21, 2018 at 03:58 PM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.11
 
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `Book` (
   `bookid` int(45) NOT NULL,
-  `uid` int(45) NOT NULL,
+  `userid` int(45) DEFAULT NULL,
   `name` varchar(45) NOT NULL,
   `author` varchar(45) NOT NULL,
   `genre` varchar(45) NOT NULL,
@@ -41,10 +41,11 @@ CREATE TABLE `Book` (
 -- Dumping data for table `Book`
 --
 
-INSERT INTO `Book` (`bookid`, `uid`, `name`, `author`, `genre`, `state`) VALUES
-(5, 11, 'sherlock', 'conan', 'mystery', 'Completed'),
-(6, 11, 'sherlock2', 'conan', 'mystery', 'Completed'),
-(7, 12, 'Notsherlock', 'Notconan', 'Notmystery', 'Reading');
+INSERT INTO `Book` (`bookid`, `userid`, `name`, `author`, `genre`, `state`) VALUES
+(10, 11, 'sherlock', 'conan', 'mystery', 'Plan to Read'),
+(29, 11, 'sherlock2', 'conan', 'mystery', 'Plan to Read'),
+(30, 11, 'sherlock2', 'conan', 'mystery', 'Completed'),
+(31, 11, 'sherlock3', 'conan', 'mystery', 'Dropped ');
 
 -- --------------------------------------------------------
 
@@ -53,7 +54,7 @@ INSERT INTO `Book` (`bookid`, `uid`, `name`, `author`, `genre`, `state`) VALUES
 --
 
 CREATE TABLE `BookStatus` (
-  `bookid` int(45) NOT NULL,
+  `bid` int(45) NOT NULL,
   `status` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -61,10 +62,10 @@ CREATE TABLE `BookStatus` (
 -- Dumping data for table `BookStatus`
 --
 
-INSERT INTO `BookStatus` (`bookid`, `status`) VALUES
-(5, 'available'),
-(6, 'available'),
-(7, 'borrowed');
+INSERT INTO `BookStatus` (`bid`, `status`) VALUES
+(10, 'unavailable'),
+(30, 'unavailable'),
+(31, 'available');
 
 -- --------------------------------------------------------
 
@@ -78,13 +79,6 @@ CREATE TABLE `Borrower` (
   `ownerid` int(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `Borrower`
---
-
-INSERT INTO `Borrower` (`borrowid`, `bookid`, `ownerid`) VALUES
-(12, 7, 11);
-
 -- --------------------------------------------------------
 
 --
@@ -92,7 +86,7 @@ INSERT INTO `Borrower` (`borrowid`, `bookid`, `ownerid`) VALUES
 --
 
 CREATE TABLE `Contact` (
-  `contactid` int(45) NOT NULL,
+  `contactid` int(45) DEFAULT NULL,
   `name` varchar(45) NOT NULL,
   `email` varchar(255) NOT NULL,
   `phone` varchar(15) NOT NULL
@@ -103,7 +97,7 @@ CREATE TABLE `Contact` (
 --
 
 INSERT INTO `Contact` (`contactid`, `name`, `email`, `phone`) VALUES
-(11, 'ashGod', 'ash@gmail', '123456789');
+(11, 'ashGod', 'ashwin@gmail', '123456789');
 
 -- --------------------------------------------------------
 
@@ -122,8 +116,7 @@ CREATE TABLE `User` (
 --
 
 INSERT INTO `User` (`uid`, `username`, `password`) VALUES
-(11, 'ashwin', 'ash123'),
-(12, 'prince', 'pri123');
+(11, 'ashwin', 'ash123');
 
 --
 -- Indexes for dumped tables
@@ -134,13 +127,13 @@ INSERT INTO `User` (`uid`, `username`, `password`) VALUES
 --
 ALTER TABLE `Book`
   ADD PRIMARY KEY (`bookid`),
-  ADD KEY `uid` (`uid`);
+  ADD KEY `uid` (`userid`);
 
 --
 -- Indexes for table `BookStatus`
 --
 ALTER TABLE `BookStatus`
-  ADD KEY `bookid` (`bookid`);
+  ADD KEY `bookid` (`bid`);
 
 --
 -- Indexes for table `Borrower`
@@ -160,7 +153,8 @@ ALTER TABLE `Contact`
 -- Indexes for table `User`
 --
 ALTER TABLE `User`
-  ADD PRIMARY KEY (`uid`);
+  ADD PRIMARY KEY (`uid`),
+  ADD UNIQUE KEY `username` (`username`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -170,13 +164,13 @@ ALTER TABLE `User`
 -- AUTO_INCREMENT for table `Book`
 --
 ALTER TABLE `Book`
-  MODIFY `bookid` int(45) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `bookid` int(45) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `User`
 --
 ALTER TABLE `User`
-  MODIFY `uid` int(45) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `uid` int(45) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- Constraints for dumped tables
@@ -186,13 +180,13 @@ ALTER TABLE `User`
 -- Constraints for table `Book`
 --
 ALTER TABLE `Book`
-  ADD CONSTRAINT `Book_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `User` (`uid`);
+  ADD CONSTRAINT `Book_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `User` (`uid`);
 
 --
 -- Constraints for table `BookStatus`
 --
 ALTER TABLE `BookStatus`
-  ADD CONSTRAINT `BookStatus_ibfk_1` FOREIGN KEY (`bookid`) REFERENCES `Book` (`bookid`);
+  ADD CONSTRAINT `BookStatus_ibfk_1` FOREIGN KEY (`bid`) REFERENCES `Book` (`bookid`);
 
 --
 -- Constraints for table `Borrower`
