@@ -47,7 +47,7 @@ public class IndexButtonController extends HttpServlet {
 		int uid = Integer.parseInt(request.getParameter("t2")) ;
 		User lst = d.getUserDetails(uid); 
 	    request.setAttribute("ls", lst);
-		RequestDispatcher view = request.getRequestDispatcher("displayContact.jsp");
+		RequestDispatcher view = request.getRequestDispatcher("indexContact.jsp");
 		view.forward(request, response);
 		}
 	}

@@ -61,7 +61,7 @@ public class BorrowButtonController extends HttpServlet {
 		
 			User lst = db.getUserDetails(uid); 
 		    request.setAttribute("ls", lst);
-			RequestDispatcher view = request.getRequestDispatcher("displayContact.jsp");
+			RequestDispatcher view = request.getRequestDispatcher("borrowContact.jsp");
 			view.forward(request, response);
 	
 		

@@ -7,6 +7,13 @@
 
 > Make necessary adjustments in Dao class (master will have  `""`)
 
+## How to run the app
+* Import Book_List.sql in MySql database
+* Import porject in eclipse and configure build path
+> Configure build path -> Add Library -> add apache tomcat v8.5 folder
+> Configure build path -> Add External jar -> add mysql connector 
+* Start server and go to `http://localhost:8080/advJava` in your browser
+
 ## How to get a copy of the project
 ```
 git clone https://github.com/Klaus-poppe/advJava
@@ -33,3 +40,5 @@ git branch [branchName]
 * Ashwin Jawahar - master
 * Arnav Ajav - arnav
 * Gayathri Chandreshekar - gayathri
+
+
