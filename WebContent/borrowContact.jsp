@@ -80,8 +80,8 @@
       <th scope="row">#</th>
       <td><%= obj.getUserName()%></td>
       <td><%= obj.getName()%></td>
-      <td><%= obj.getPhone()%></td>
       <td><%= obj.getEmail()%></td>
+      <td><%= obj.getPhone()%></td>
     </tr>
 
   </tbody>

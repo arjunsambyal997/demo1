@@ -39,14 +39,14 @@ public class IndexButtonController extends HttpServlet {
 		{
 		String bookname = request.getParameter("t0");
 		List <Book> lst = d.selectBookForBorrow(bookname);
-		request.setAttribute("ls", lst);
-		RequestDispatcher rs = request.getRequestDispatcher("indexSearch.jsp");
+		request.setAttribute("lst", lst);
+		RequestDispatcher rs = request.getRequestDispatcher("index.jsp");
 		rs.include(request, response);
 		}
 		else if(button.equals("Contact")) {
 		int uid = Integer.parseInt(request.getParameter("t2")) ;
 		User lst = d.getUserDetails(uid); 
-	    request.setAttribute("ls", lst);
+	    request.setAttribute("lst", lst);
 		RequestDispatcher view = request.getRequestDispatcher("indexContact.jsp");
 		view.forward(request, response);
 		}

@@ -42,16 +42,16 @@ public class BorrowButtonController extends HttpServlet {
 		
 			String bookname = request.getParameter("t1");
 			List <Book> lst = db.selectBookForBorrow(bookname);
-			request.setAttribute("ls", lst);
-			RequestDispatcher rs = request.getRequestDispatcher("borrowSearch.jsp");
+			request.setAttribute("lst", lst);
+			RequestDispatcher rs = request.getRequestDispatcher("Borrow.jsp");
 			rs.include(request, response);
 				
 			} else if (button.equals("SearchUser")) {
 				String name = request.getParameter("t1");
 				int id = db.selectUser(name);
 				List <Book> lst = db.selectAllBooksForBorrowByUser(id);
-				request.setAttribute("ls", lst);
-					RequestDispatcher view = request.getRequestDispatcher("borrowSearch.jsp");
+				request.setAttribute("lst", lst);
+					RequestDispatcher view = request.getRequestDispatcher("Borrow.jsp");
 					view.forward(request, response);
 			
 				

@@ -45,7 +45,7 @@
 
 <div class = "container" style = "padding : 100px" >
 <%
-	User obj = (User) request.getAttribute("ls");
+	User obj = (User) request.getAttribute("lst");
 %>
 	<table class="table table-striped table-bordered ">
   <thead class ="thead-dark">
@@ -63,8 +63,8 @@
       <th scope="row">#</th>
       <td><%= obj.getUserName()%></td>
       <td><%= obj.getName()%></td>
-      <td><%= obj.getPhone()%></td>
       <td><%= obj.getEmail()%></td>
+      <td><%= obj.getPhone()%></td>
     </tr>
 
   </tbody>

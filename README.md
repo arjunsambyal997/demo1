@@ -9,6 +9,7 @@
 
 ## How to run the app
 * Import Book_List.sql in MySql database
+> If import is not possible just create a database named Book_List and copy paste the contents of the provided sql file and run it as a query
 * Import porject in eclipse and configure build path
 > Configure build path -> Add Library -> add apache tomcat v8.5 folder
 

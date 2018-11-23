@@ -42,14 +42,26 @@ public class HomeButtonController extends HttpServlet {
 		boolean flag = true;
 			if(button.equals("Search"))
 			{
-				String bookname = request.getParameter("t1");
-				b = db.selectBookByUser(bookname, username);
-				int bookid =b.getBookId();
-				String issueStatus = db.getStatus(bookid); 
-				b.setIssueStatus(issueStatus);
-				request.setAttribute("book", b);
-				RequestDispatcher rs = request.getRequestDispatcher("homeSearch.jsp");
+				String search = request.getParameter("t1");
+				 search = search.trim();
+				 int uid = db.selectUser(username);
+				 if(flag && search.length() != 0) {	
+				List <Book> lst = db.searchBookOfUser(search, username);
+				
+					
+				 for(Book obj : lst)
+				 {
+					 int bookid =obj.getBookId();
+						String issueStatus = db.getStatus(bookid); 
+						obj.setIssueStatus(issueStatus);
+				 }
+				request.setAttribute("sb", lst);
+				 
+				RequestDispatcher rs = request.getRequestDispatcher("Home.jsp");
 				rs.include(request, response);
+				 }
+		
+			
 				
 			} else if (button.equals("Add Book")) {
 				
@@ -69,8 +81,8 @@ public class HomeButtonController extends HttpServlet {
 				 b.setStatus(status);
 				 b.setIssueStatus(issueStatus);
 				 flag = db.insertBook(b);
-				 Book b1 = db.selectBookByUser(name, username);
-				 b.setBookId(b1.getBookId());
+				 int bookid = db.selectBookId(name,uid);
+				 b.setBookId(bookid);
 				 if(flag)
 					 flag = db.insertBookStatus(b);
 				if(flag)
@@ -83,8 +95,8 @@ public class HomeButtonController extends HttpServlet {
 			 else if (button.equals("Remove")) {
 					
 				 String bookname = request.getParameter("t1");
-				 b= db.selectBookByUser(bookname, username);
-				 int bookId = b.getBookId();
+				 int uid = db.selectUser(username);
+				 int bookId = db.selectBookId(bookname,uid);
 					flag = db.deleteBook(bookId);
 					
 					if(flag)
@@ -97,21 +109,24 @@ public class HomeButtonController extends HttpServlet {
 			 else if (button.equals("Update")) {
 					
 				 String bookname = request.getParameter("t1");
+				 bookname = bookname.trim();
 					String author = request.getParameter("t2");
+					 author = author.trim();
 					String genre = request.getParameter("t3");
+					 genre = genre.trim();
 					String status = request.getParameter("t4");
+					 status = status.trim();
 					String issueStatus = request.getParameter("t5");
-					if(issueStatus == null)
-						issueStatus = "unavailable";
-				 b= db.selectBookByUser(bookname, username);
-				 int bookId = b.getBookId();
-				 if(flag)
+				 int uid = db.selectUser(username);
+				 int bookId = Integer.parseInt(request.getParameter("t0"));
+			
+				 if(flag && bookname.length() != 0)
 					flag = db.updateBookName(bookId, bookname);
-				 if(flag)
+				 if(flag && author.length() != 0)
 					 flag = db.updateBookAuthor(bookId, author);
-				 if(flag)
+				 if(flag && genre.length() != 0)
 					 flag = db.updateBookGenre(bookId, genre);
-				 if(flag)
+				 if(flag && status.length() != 0)
 					 flag = db.updateBookStatus(bookId, status);
 				 if(flag)
 					 flag = db.updateBookIssueStatus(bookId, issueStatus);
