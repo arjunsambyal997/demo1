@@ -22,7 +22,51 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 	
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+
+<script>
+function ValidateEmail() 
+{
+	var x = document.getElementById("email");
+	var y = x.value;
+	var re = new RegExp(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
+ if (!re.test(y))
+  {
+	 alert("wrong"); 
+	 x.value = null;
+	  
+  }
+}
+
+function phonenumber()
+{
+	var x = document.getElementById("phone");
+	var y = x.value;
+  var phoneno = /^\d{10}$/;
+  if(!phoneno.test(y))
+        {
+        alert("wrong");
+        x.value = null;
+        }
+}
+
+function passCheck(){
+	var x = document.getElementById("pass1");
+	var y = document.getElementById("pass2");
+	if(x.value != y.value){
+		alert("doesn't match");
+		y.value = null 
+		
+	}
+}
+
+</script>
+
 </head>
+
+
+
 
 <body>
 	<nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
@@ -90,19 +134,19 @@
   </div>
   <div class="form-group">
     <label>Email:</label>
-    <input type="text" name="e" placeholder="Email" required="required" class ="form-control"  />
+    <input type="text" name="e" placeholder="Email" required="required" class ="form-control" id="email"  onchange	="ValidateEmail()" />
   </div>
   <div class="form-group">
     <label>Contact No:</label>
-    <input type="text"	name="ph" placeholder="Contact No." required="required" class ="form-control" />
+    <input type="text"	name="ph" placeholder="Contact No." id="phone" onchange="phonenumber()" required="required" class ="form-control" />
   </div>
   <div class="form-group">
     <label>Password:</label>
-     <input	type="password" name="p" placeholder="Password" required="required" class ="form-control" /> 
+     <input	type="password" name="p" placeholder="Password" required="required" id="pass1" class ="form-control" /> 
   </div>
    <div class="form-group">
     <label>Confirm Password:</label>
- <input type="password" name="cp" placeholder="Confirm Password"	required="required" class ="form-control" />
+ <input type="password" name="cp" placeholder="Confirm Password" onchange="passCheck()" id="pass2"	required="required" class ="form-control" />
   </div>
   
 	<input type="submit" name="b1" value="Register"	class="btn btn-dark btn-block" />

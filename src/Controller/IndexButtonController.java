@@ -41,7 +41,7 @@ public class IndexButtonController extends HttpServlet {
 		List <Book> lst = d.selectBookForBorrow(bookname);
 		request.setAttribute("lst", lst);
 		RequestDispatcher rs = request.getRequestDispatcher("index.jsp");
-		rs.include(request, response);
+		rs.forward(request, response);
 		}
 		else if(button.equals("Contact")) {
 		int uid = Integer.parseInt(request.getParameter("t2")) ;

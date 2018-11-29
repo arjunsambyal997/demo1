@@ -94,7 +94,7 @@
       <th scope="col">Name</th>
        <th scope="col">Author</th>
         <th scope="col">genre</th>
-        <th scope="col">State</th>
+        <th scope="col">Progress</th>
          <th scope="col"></th>
     </tr>
   </thead>
