@@ -64,14 +64,12 @@ public class RegisterController extends HttpServlet {
 					
 				if(flag)
 				{
-					RequestDispatcher view = request.getRequestDispatcher("Login.jsp");
-					view.forward(request, response);
+					response.sendRedirect("Login.jsp");
 				}
 			}
 			else
 			{
-				RequestDispatcher rs = request.getRequestDispatcher("SignUp.jsp");
-				rs.include(request, response);
+				response.sendRedirect("SignUp.jsp");
 			}
 		}
 				

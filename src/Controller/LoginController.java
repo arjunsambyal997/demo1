@@ -38,19 +38,18 @@ public class LoginController extends HttpServlet {
 			
 		if(button.equals("Login"))
 		{
-			String username=request.getParameter("u"); //MAKE GLOBAL?
+			String username=request.getParameter("u"); 
 			String password=request.getParameter("p");
 			if(db.checkUser(username, password))
 	        {
 				HttpSession session=request.getSession();
 				session.setAttribute("n",username);
-	            RequestDispatcher rs = request.getRequestDispatcher("home");
-	            rs.forward(request, response);
+
+				response.sendRedirect("home");
 	        }
 	        else
 	        {
-	           RequestDispatcher rs = request.getRequestDispatcher("Login.jsp");
-	           rs.include(request, response);
+	        	response.sendRedirect("Login.jsp");
 	        }
 		}
 		

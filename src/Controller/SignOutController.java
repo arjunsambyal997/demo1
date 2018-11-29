@@ -32,8 +32,7 @@ public class SignOutController extends HttpServlet {
 		// TODO Auto-generated method stub
 		HttpSession session=request.getSession();
 		session.invalidate();
-		RequestDispatcher view = request.getRequestDispatcher("index");
-		view.forward(request, response);
+		response.sendRedirect("index");
 		
 	}
 

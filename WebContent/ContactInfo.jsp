@@ -26,6 +26,7 @@
 <!-- Latest compiled JavaScript -->
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -56,6 +57,17 @@
 			<div>
 			
 				<ul class="nav navbar-nav ml-auto w-100 justify-content-end">
+					<li class = "nav-item">
+		
+		  <form class="form-inline " action="search" method="post">
+		  	<div class="input-group input-group-sm my-1">
+  <input type="text" class="form-control bg-secondary border-secondary" placeholder="search" name ="t1" required="required"/>
+  <div class="input-group-append">
+    <button class="btn btn-secondary border-secondary" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+  </div>
+</div>
+    </form>			
+				</li>
 					<li class="nav-item"><a class="nav-link" href="signout">SignOut</a>
 					</li>
 					
@@ -66,24 +78,13 @@
 
 
 	<!-- SIGNUP FORM  -->
-<div class = "container" style = "padding-top: 5%"">
+<div class = "container" style = "padding-top: 10%"">
 <div class = "row">	
 <div class ="col-md-6">
-<!-- <form action="contactbutton" class= "form-inline ">
-	<div class="container form-group  " style="height: 500px; width: 240px;  padding-top: 5%">
-		<h1 class="display-6">Contact Info</h1>
-		
-			<input type="text" name="n" placeholder="Name" required="required" class ="form-control" /> <br>
-			<input type="text" name="e" placeholder="Email" required="required" class ="form-control"  /> <br>
-			<input type="text"	name="ph" placeholder="Contact No." required="required" class ="form-control" /> <br>
-			<input type="submit" name="b1" value="Update" class="btn btn-dark btn-block" />
-	
-		
-		</div>
-</form> -->
+
 <% User u = (User)request.getAttribute("con"); %>
 <h2 class="display-4">Contact Info</h2>
-<form action="contactbutton" >
+<form action="contactbutton" method="post" >
   <div class="form-group">
     <label>Name:</label>
     <input type="text" name="n" placeholder="Name" required="required" class ="form-control" />

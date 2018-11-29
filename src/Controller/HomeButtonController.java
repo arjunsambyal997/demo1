@@ -11,9 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import Model.Book;
-import Model.Dao;
-import Model.User;
+import Model.*;
 
 /**
  * Servlet implementation class HomeButtonController
@@ -70,9 +68,10 @@ public class HomeButtonController extends HttpServlet {
 				String genre = request.getParameter("t3");
 				String status = request.getParameter("t4");
 				String issueStatus = request.getParameter("t5");
-				if(issueStatus == null)
-					issueStatus = "unavailable";
 				int uid = db.selectUser(username);
+				
+				
+				
 				 b = new Book();
 				 b.setUserId(uid);
 				 b.setName(name);
@@ -83,12 +82,24 @@ public class HomeButtonController extends HttpServlet {
 				 flag = db.insertBook(b);
 				 int bookid = db.selectBookId(name,uid);
 				 b.setBookId(bookid);
+				 
+				 if(issueStatus.equals("Lent")) {
+						String borrower = request.getParameter("t6");
+					int borrowid = db.selectUser(borrower);
+					Borrower br =new Borrower();
+					br.setBorrowId(borrowid);
+					br.setId(uid);
+					br.setBookId(bookid);
+					if(flag)
+					flag = db.insertBorrower(br);
+					
+					}
+				 
 				 if(flag)
 					 flag = db.insertBookStatus(b);
 				if(flag)
 				{
-					RequestDispatcher view = request.getRequestDispatcher("home");
-					view.forward(request, response);
+					response.sendRedirect("home");
 				}
 				
 			}
@@ -101,39 +112,33 @@ public class HomeButtonController extends HttpServlet {
 					
 					if(flag)
 					{
-						RequestDispatcher view = request.getRequestDispatcher("home");
-						view.forward(request, response);
+						response.sendRedirect("home");
 					}
 					
 				}
 			 else if (button.equals("Update")) {
 					
 				 String bookname = request.getParameter("t1");
-				 bookname = bookname.trim();
 					String author = request.getParameter("t2");
-					 author = author.trim();
 					String genre = request.getParameter("t3");
-					 genre = genre.trim();
 					String status = request.getParameter("t4");
-					 status = status.trim();
 					String issueStatus = request.getParameter("t5");
 				 int uid = db.selectUser(username);
 				 int bookId = Integer.parseInt(request.getParameter("t0"));
 			
-				 if(flag && bookname.length() != 0)
+				 if(flag )
 					flag = db.updateBookName(bookId, bookname);
-				 if(flag && author.length() != 0)
+				 if(flag)
 					 flag = db.updateBookAuthor(bookId, author);
-				 if(flag && genre.length() != 0)
+				 if(flag)
 					 flag = db.updateBookGenre(bookId, genre);
-				 if(flag && status.length() != 0)
+				 if(flag)
 					 flag = db.updateBookStatus(bookId, status);
 				 if(flag)
 					 flag = db.updateBookIssueStatus(bookId, issueStatus);
 					if(flag)
 					{
-						RequestDispatcher view = request.getRequestDispatcher("home");
-						view.forward(request, response);
+						response.sendRedirect("home");
 					}
 					
 				}

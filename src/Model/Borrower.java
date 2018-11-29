@@ -3,15 +3,15 @@ package Model;
  * Contains getter and setter methods for Borrower ID & Book ID. 
  */
 public class Borrower extends User {
-	private int ownerId;
+	private int borrowid;
 	private int bookId;
 	
 
-	public int getOwnerId() { // returns book owner's id
-		return ownerId;
+	public int getBorrowId() { // returns book owner's id
+		return borrowid;
 	}
-	public void setBorrowerId(int borrowerId) { // Sets Owner's id
-		this.ownerId = borrowerId;
+	public void setBorrowId(int borrowerId) { // Sets Owner's id
+		this.borrowid = borrowerId;
 
 	}
 	public int getBookId() {					//Returns book id of borrowed book
