@@ -22,6 +22,13 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 	
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>
+body {
+    background-image: url("img/background.jpg");
+}
+</style>
+
 </head>
 
 <body>
@@ -38,7 +45,7 @@
 		
 		  <form class="form-inline " action="search" method="post">
 		  	<div class="input-group input-group-sm my-1">
-  <input type="text" class="form-control bg-secondary border-secondary" placeholder="search" name ="t1" required="required"/>
+  <input type="text" class="form-control bg-secondary border-secondary text-white" name ="t1" required="required"/>
   <div class="input-group-append">
     <button class="btn btn-secondary border-secondary" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
   </div>

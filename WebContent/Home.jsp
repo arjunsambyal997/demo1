@@ -12,7 +12,9 @@
 	background: transparent;
 }
 
-
+body {
+    background-image: url("img/background.jpg");
+}
 </style>
 <script>
 function f1()
@@ -50,7 +52,7 @@ function f1()
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 </head>
 
-<body>
+<body >
 	<%
 		String name = (String) session.getAttribute("n");
 	%>
@@ -83,7 +85,7 @@ function f1()
 		
 		  <form class="form-inline " action="search" method="post">
 		  	<div class="input-group input-group-sm my-1">
-  <input type="text" class="form-control bg-secondary border-secondary" placeholder="search" name ="t1" required="required"/>
+  <input type="text" class="form-control bg-secondary border-secondary text-white" placeholder="search" name ="t1" required="required"/>
   <div class="input-group-append">
     <button class="btn btn-secondary border-secondary" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
   </div>
@@ -109,7 +111,7 @@ function f1()
 					<div class = "form-row">
 					<div class = "col-md-4">
 						<input type="text"
-							placeholder="Enter book,author or genre" class="form-control " name="t1" />
+							placeholder="Enter book,author or genre" required="required" class="form-control " name="t1" />
 					</div>
 						<div class = "col-md-4">
 						
@@ -158,7 +160,7 @@ function f1()
 			List<Book> s = (List<Book>) request.getAttribute("sb");
 		%>
 		<div class="table-responsive">
-		<table class="table table-striped table-bordered ">
+		<table class="table table-light table-striped table-bordered table-hover ">
 			<thead class="thead-dark">
 				<tr>
 					<th scope="col">#</th>
@@ -217,8 +219,8 @@ function f1()
 							</div></td>
 						<td scope="col">
 						<div class ="container">
-							<input type="submit" name="b1" value="Update" class="btn btn-outline-dark" />						
-						<input type="submit" name="b1" value="Remove"class="btn btn-outline-dark" />			
+							<input type="submit" name="b1" value="Update" class="btn btn-dark" />						
+						<input type="submit" name="b1" value="Remove"class="btn btn-dark" />			
 						</div>			
       					 </td>
 						

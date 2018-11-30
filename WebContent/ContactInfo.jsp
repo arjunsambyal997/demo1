@@ -27,6 +27,41 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<script>
+function ValidateEmail() 
+{
+	var x = document.getElementById("email");
+	var y = x.value;
+	var re = new RegExp(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
+ if (!re.test(y))
+  {
+	 alert("wrong"); 
+	 x.value = null;
+	  
+  }
+}
+
+function phonenumber()
+{
+	var x = document.getElementById("phone");
+	var y = x.value;
+  var phoneno = /^\d{10}$/;
+  if(!phoneno.test(y))
+        {
+        alert("wrong");
+        x.value = null;
+        }
+}
+
+
+</script>
+
+<style>
+body {
+    background-image: url("img/background.jpg");
+}
+</style>
 </head>
 
 <body>
@@ -61,7 +96,7 @@
 		
 		  <form class="form-inline " action="search" method="post">
 		  	<div class="input-group input-group-sm my-1">
-  <input type="text" class="form-control bg-secondary border-secondary" placeholder="search" name ="t1" required="required"/>
+  <input type="text" class="form-control bg-secondary border-secondary text-white" name ="t1" required="required"/>
   <div class="input-group-append">
     <button class="btn btn-secondary border-secondary" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
   </div>
@@ -87,15 +122,15 @@
 <form action="contactbutton" method="post" >
   <div class="form-group">
     <label>Name:</label>
-    <input type="text" name="n" placeholder="Name" required="required" class ="form-control" />
+    <input type="text" name="n" placeholder="Name" class ="form-control" />
   </div>
   <div class="form-group">
     <label>Email:</label>
-    <input type="email" name="e" placeholder="Email" required="required" class ="form-control"  />
+       <input type="text" name="e" placeholder="Email" class ="form-control" id="email"  onchange	="ValidateEmail()" />
   </div>
     <div class="form-group">
     <label>Phone:</label>
-   <input type="text"	name="ph" placeholder="Contact No." required="required" class ="form-control" />
+     <input type="text"	name="ph" placeholder="Contact No." id="phone" onchange="phonenumber()" class ="form-control" />
   </div>
   <input type="submit" name="b1" value="Update" class="btn btn-dark btn-block" />
 </form>

@@ -656,15 +656,17 @@ public class Dao {
 	}
 	
 	//searches for a book in book table and returns its status as well
-	public List<Book> selectBookByName(String bookname) {
+	public List<Book> selectBookByName(String search) {
 	 List <Book> lst = new ArrayList<Book>();
 		try {
 			
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection(url, user, pass);
-			sql="Select `name`, `author`, `genre`, `state` ,`bookid`,`status`,`userid` from Book Inner Join BookStatus on Book.bookid = BookStatus.bid AND name = ?";
+			sql="Select `name`, `author`, `genre`, `state` ,`bookid`,`status`,`userid` from Book Inner Join BookStatus on Book.bookid = BookStatus.bid AND (name = ? or author= ? or genre = ?)";
 			PreparedStatement ps = con.prepareStatement(sql);
-			ps.setString(1, bookname);
+			ps.setString(1, search);
+			ps.setString(2, search);
+			ps.setString(3, search);
 			ResultSet rs = ps.executeQuery();
 
 			while(rs.next()) {
@@ -794,8 +796,8 @@ public class Dao {
 
 	}
 	
-	//checks for a specific book by bookname of a specific user  by username
-	public List <Book> searchBookOfUser(String bookname , String username) {
+	//checks for a specific book of a specific user  by username
+	public List <Book> searchBookOfUser(String search , String username) {
 		List <Book> lst = new ArrayList<>();
 		try {
 
@@ -803,9 +805,9 @@ public class Dao {
 			Connection con = DriverManager.getConnection(url, user, pass);
 			sql="SELECT  `name`, `author`, `genre`, `state`,`bookid` FROM Book INNER JOIN User ON User.uid = Book.userid And (Book.name =? OR Book.author = ? OR Book.genre = ?) And User.username= ?";
 			PreparedStatement ps = con.prepareStatement(sql);
-			ps.setString(1, bookname);
-			ps.setString(2, bookname);
-			ps.setString(3, bookname);
+			ps.setString(1, search);
+			ps.setString(2, search);
+			ps.setString(3, search);
 			ps.setString(4, username);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next())

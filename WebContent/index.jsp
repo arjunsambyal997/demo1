@@ -23,6 +23,19 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+
+<script>
+function f1()
+{
+alert("Login to continue");	
+}
+</script>
+
+<style>
+body {
+    background-image: url("img/background.jpg");
+}
+</style>
 </head>
 
 
@@ -41,7 +54,7 @@
 		
 		  <form class="form-inline " action="search" method="post">
 		  	<div class="input-group input-group-sm my-1">
-  <input type="text" class="form-control bg-secondary border-secondary" placeholder="search" name ="t1" required="required"/>
+  <input type="text" class="form-control bg-secondary border-secondary text-white" placeholder="search" name ="t1" required="required"/>
   <div class="input-group-append">
     <button class="btn btn-secondary border-secondary" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
   </div>
@@ -74,7 +87,7 @@
 <%
 	List <Book> s = (List <Book> ) request.getAttribute("lst");
 %>
-	<table class="table table-striped table-bordered ">
+	<table class="table table-light table-striped table-bordered ">
   <thead class ="thead-dark">
     <tr>
       <th scope="col">#</th>
@@ -101,7 +114,7 @@
       <td> 
       <form action="indexbutton" method="post">
         <input type ="hidden"  value = "<%=obj.getUserId() %>" name="t2" class ="btn btn-dark" />
-      <input type ="submit"value ="Contact" name ="b1" class ="btn btn-dark" /> 
+      <button type ="submit" value ="Contact" name ="b1" class ="btn btn-dark"  onclick="f1()">Contact</button> 
       </form>
       </td>
     </tr>

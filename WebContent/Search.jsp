@@ -23,6 +23,19 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+<script>
+function f1()
+{
+alert("Login to continue");	
+}
+</script>
+
+<style>
+body {
+    background-image: url("img/background.jpg");
+}
+</style>
+
 </head>
 
 
@@ -46,7 +59,7 @@ if(session.getAttribute("n") == null){
 		
 		  <form class="form-inline " action="search" method="post">
 		  	<div class="input-group input-group-sm my-1">
-  <input type="text" class="form-control bg-secondary border-secondary" placeholder="search" name ="t1" required="required"/>
+  <input type="text" class="form-control bg-secondary border-secondary text-white"  name ="t1" required="required"/>
   <div class="input-group-append">
     <button class="btn btn-secondary border-secondary" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
   </div>
@@ -91,7 +104,7 @@ if(session.getAttribute("n") == null){
 		
 		  <form class="form-inline " action="search" method="post">
 		  	<div class="input-group input-group-sm my-1">
-  <input type="text" class="form-control bg-secondary border-secondary" placeholder="search" name ="t1" required="required"/>
+  <input type="text" class="form-control bg-secondary border-secondary text-white" placeholder="search" name ="t1" required="required"/>
   <div class="input-group-append">
     <button class="btn btn-secondary border-secondary" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
   </div>
@@ -109,28 +122,17 @@ if(session.getAttribute("n") == null){
 <%} %>
 
 <div class = "container" style = "padding : 100px" >
-	<form action="indexbutton" class = "form-inline form-group mb-2" method="post">
-		<table class="table " >
-  <thead class ="thead-light">
-    <tr>
-      <th scope="col"><input type= "text" placeholder = "Search" class="form-control " name = "t0" />
-      <input type ="submit" name ="b1" value = "Search" class="btn btn-dark" /></th>
-    </tr>
-  </thead>
-	</table>
-	</form>
 
 <%
 	List <Book> s = (List <Book> ) request.getAttribute("lst");
 %>
-	<table class="table table-striped table-bordered ">
+	<table class="table table-light table-striped table-bordered ">
   <thead class ="thead-dark">
     <tr>
       <th scope="col">#</th>
       <th scope="col">Name</th>
        <th scope="col">Author</th>
         <th scope="col">genre</th>
-        <th scope="col">Progress</th>
           <th scope="col">Status</th>
          <th scope="col"></th>
     </tr>
@@ -147,15 +149,26 @@ if(session.getAttribute("n") == null){
       <td><%= obj.getName()%></td>
       <td><%= obj.getAuthor()%></td>
       <td><%= obj.getGenre()%></td>
-       <td><%= obj.getStatus()%></td>
       <td><%= obj.getIssueStatus()%></td>
       <td> 
+      <%  if(session.getAttribute("n") == null){ %>
       <form action="indexbutton" method="post">
-        <input type ="hidden"  value = "<%=obj.getUserId() %>" name="t2" class ="btn btn-dark" />
-        <% if(obj.getIssueStatus().equals("Available")){ %>
+       <input type ="hidden"  value = "<%=obj.getUserId() %>" name="t2" class ="btn btn-dark" />
+        <% 
+        if(obj.getIssueStatus().equals("Available")){ %>
+      <input type ="submit"value ="Contact"  onclick="f1()" name ="b1" class ="btn btn-dark" /> 
+      <%} %>
+        <%}else{ %>
+      <form action="borrowbutton" method="post">
+       <input type ="hidden"  value = "<%=obj.getUserId() %>" name="t2" class ="btn btn-dark" />
+        <% 
+        if(obj.getIssueStatus().equals("Available")){ %>
       <input type ="submit"value ="Contact" name ="b1" class ="btn btn-dark" /> 
       <%} %>
+      <%} %>
+       
       </form>
+    
       </td>
     </tr>
    <%} %>

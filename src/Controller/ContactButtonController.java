@@ -44,14 +44,17 @@ public class ContactButtonController extends HttpServlet {
 		{
 					
 			String name=request.getParameter("n");
+			name=name.trim();
 			String email=request.getParameter("e");
+			email = email.trim();
 			String phone=request.getParameter("ph");
+			phone = phone.trim();
 			int cid= db.selectUser(username); 
-			if(flag)
+			if(flag && name.length() != 0)
 			 flag=db.updateContactName(cid, name);
-			if(flag)
+			if(flag && email.length() != 0)
 			flag=db.updateContactEmail(cid, email);
-			if(flag)
+			if(flag && phone.length() != 0)
 			flag=db.updateContactPhone(cid, phone);
 			if(flag)
 			{

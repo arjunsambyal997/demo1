@@ -44,11 +44,12 @@ public class IndexButtonController extends HttpServlet {
 		rs.forward(request, response);
 		}
 		else if(button.equals("Contact")) {
-		int uid = Integer.parseInt(request.getParameter("t2")) ;
-		User lst = d.getUserDetails(uid); 
-	    request.setAttribute("lst", lst);
-		RequestDispatcher view = request.getRequestDispatcher("Contact.jsp");
-		view.forward(request, response);
+			response.sendRedirect("Login.jsp");
+//		int uid = Integer.parseInt(request.getParameter("t2")) ;
+//		User lst = d.getUserDetails(uid); 
+//	    request.setAttribute("lst", lst);
+//		RequestDispatcher view = request.getRequestDispatcher("Contact.jsp");
+//		view.forward(request, response);
 		}
 	}
 

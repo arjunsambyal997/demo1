@@ -1,12 +1,18 @@
 package Controller;
  import java.io.IOException;
- import javax.servlet.RequestDispatcher;
+import java.io.PrintWriter;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
- import Model.Dao;
+import javax.xml.bind.DatatypeConverter;
+
+import Model.Dao;
 import Model.User;
  /**
  * Servlet implementation class RegisterController
@@ -38,6 +44,8 @@ public class RegisterController extends HttpServlet {
 		Boolean flag;
 		Dao db = new Dao();
 		String button = request.getParameter("b1");	
+		PrintWriter out = response.getWriter();
+		String pass = null;
 		if(button.equals("Register"))
 		{
 					
@@ -54,9 +62,23 @@ public class RegisterController extends HttpServlet {
 				s.setEmail(email);
 				s.setPhone(phone);
 				s.setName(name);
-				s.setPassword(password);
+				   try {
+					MessageDigest md = MessageDigest.getInstance("MD5");
+					    md.update(password.getBytes());
+					    byte[] digest = md.digest();
+					    pass = DatatypeConverter.printHexBinary(digest).toUpperCase();
+				} catch (NoSuchAlgorithmException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				s.setPassword(pass);
 				s.setUserName(username);
+				User u = db.getUserDetails(s.getUserName());
+				if (u != null) {
 				flag = db.insertUser(s);
+				}else {
+					flag = false ;
+				}
 				int uid = db.selectUser(s.getUserName());
 				s.setId(uid);
 				if(flag)
@@ -65,6 +87,8 @@ public class RegisterController extends HttpServlet {
 				if(flag)
 				{
 					response.sendRedirect("Login.jsp");
+				}else {
+					response.sendRedirect("SignUp.jsp");
 				}
 			}
 			else

@@ -41,9 +41,7 @@ public class HomeButtonController extends HttpServlet {
 			if(button.equals("Search"))
 			{
 				String search = request.getParameter("t1");
-				 search = search.trim();
 				 int uid = db.selectUser(username);
-				 if(flag && search.length() != 0) {	
 				List <Book> lst = db.searchBookOfUser(search, username);
 				
 					
@@ -57,8 +55,7 @@ public class HomeButtonController extends HttpServlet {
 				 
 				RequestDispatcher rs = request.getRequestDispatcher("Home.jsp");
 				rs.include(request, response);
-				 }
-		
+
 			
 				
 			} else if (button.equals("Add Book")) {

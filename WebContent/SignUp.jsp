@@ -35,7 +35,7 @@ function ValidateEmail()
   {
 	 alert("wrong"); 
 	 x.value = null;
-	  
+	  x.focus();
   }
 }
 
@@ -48,6 +48,7 @@ function phonenumber()
         {
         alert("wrong");
         x.value = null;
+        x.focus();
         }
 }
 
@@ -55,13 +56,26 @@ function passCheck(){
 	var x = document.getElementById("pass1");
 	var y = document.getElementById("pass2");
 	if(x.value != y.value){
-		alert("doesn't match");
+		alert("password doesn't match");
 		y.value = null 
+		y.focus();
 		
+	}else {
+		var z = md5(x.value);
+		var k = md5(y.value);
+		alert(z);
+		x.value = z;
+		y.value = k;
 	}
 }
 
 </script>
+
+<style>
+body {
+    background-image: url("img/background.jpg");
+}
+</style>
 
 </head>
 
@@ -82,7 +96,7 @@ function passCheck(){
 		
 		  <form class="form-inline " action="search" method="post">
 		  	<div class="input-group input-group-sm my-1">
-  <input type="text" class="form-control bg-secondary border-secondary" placeholder="search" name ="t1" required="required"/>
+  <input type="text" class="form-control bg-secondary border-secondary text-white" name ="t1" required="required"/>
   <div class="input-group-append">
     <button class="btn btn-secondary border-secondary" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
   </div>
@@ -146,10 +160,10 @@ function passCheck(){
   </div>
    <div class="form-group">
     <label>Confirm Password:</label>
- <input type="password" name="cp" placeholder="Confirm Password" onchange="passCheck()" id="pass2"	required="required" class ="form-control" />
+ <input type="password" name="cp" placeholder="Confirm Password"  onchange="passCheck()" id="pass2"	required="required" class ="form-control" />
   </div>
   
-	<input type="submit" name="b1" value="Register"	class="btn btn-dark btn-block" />
+	<input type="submit" name="b1" value="Register"	onmousedown = "passCheck()" class="btn btn-dark btn-block" />
 </form>
 </div>
 </div>

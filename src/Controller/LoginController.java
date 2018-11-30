@@ -1,12 +1,16 @@
 package Controller;
  import java.io.IOException;
- import javax.servlet.RequestDispatcher;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.xml.bind.DatatypeConverter;
 
 import Model.Dao;
 import Model.User;
@@ -35,7 +39,7 @@ public class LoginController extends HttpServlet {
 		// TODO Auto-generated method stub
 		Dao db = new Dao();
 		String button = request.getParameter("b1");	
-			
+		String pass = null ;	
 		if(button.equals("Login"))
 		{
 			String username=request.getParameter("u"); 
@@ -46,10 +50,27 @@ public class LoginController extends HttpServlet {
 				session.setAttribute("n",username);
 
 				response.sendRedirect("home");
+	        }else {
+			 try {
+					MessageDigest md = MessageDigest.getInstance("MD5");
+					    md.update(password.getBytes());
+					    byte[] digest = md.digest();
+					    pass = DatatypeConverter.printHexBinary(digest).toUpperCase();
+				} catch (NoSuchAlgorithmException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			if(db.checkUser(username, pass))
+	        {
+				HttpSession session=request.getSession();
+				session.setAttribute("n",username);
+
+				response.sendRedirect("home");
 	        }
 	        else
 	        {
 	        	response.sendRedirect("Login.jsp");
+	        }
 	        }
 		}
 		
