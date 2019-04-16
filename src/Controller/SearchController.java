@@ -14,9 +14,7 @@ import javax.servlet.http.HttpSession;
 import Model.Book;
 import Model.Dao;
 
-/**
- * Servlet implementation class SearchController
- */
+
 @WebServlet("/search")
 public class SearchController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
